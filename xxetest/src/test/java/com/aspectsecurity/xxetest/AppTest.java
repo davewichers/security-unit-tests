@@ -29,6 +29,8 @@ import junit.framework.TestCase;
 
 /**
  * Unit test for simple App.
+ * 
+ * @author dwichers
  */
 public class AppTest extends TestCase {
 
