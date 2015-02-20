@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE test [<!ENTITY xxetest2 SYSTEM "http://127.0.0.1:4567/static/xxe.txt"> ]>
+<test>&xxetest2;</test>

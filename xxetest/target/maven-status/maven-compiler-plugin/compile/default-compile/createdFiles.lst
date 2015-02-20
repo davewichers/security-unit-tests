@@ -1,0 +1,9 @@
+com\aspectsecurity\xxetest\jaxb\BookCategoryType.class
+com\aspectsecurity\xxetest\jaxb\BookType$Promotion.class
+com\aspectsecurity\xxetest\SAXHandler.class
+com\aspectsecurity\xxetest\jaxb\BookType$Authors.class
+com\aspectsecurity\xxetest\jaxb\BookType.class
+com\aspectsecurity\xxetest\jaxb\ObjectFactory.class
+com\aspectsecurity\xxetest\jaxb\Collection.class
+com\aspectsecurity\xxetest\App.class
+com\aspectsecurity\xxetest\jaxb\Collection$Books.class
