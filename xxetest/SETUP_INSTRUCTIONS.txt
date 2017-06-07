@@ -1,0 +1,12 @@
+Make sure you have Java installed! If you want to run different Java verions, be sure to set your %JAVA_HOME% and %PATH% variables accordingly.
+
+To run test cases out of the command line:
+
+	- Run mvnTestReport.bat or mvnTestReport.sh
+	  (Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
+
+To run test cases out of a web browser:
+
+	- Run mvnDeployWebApp.bat or mvnDeployWebApp.sh
+	- when it gets to "[INFO] Press Ctrl-C to stop the container...", open the XXETestWebApp URL shortcut (or navigate to http://localhost:8080/xxetest)
+	- Press Ctrl-C in the command line when done

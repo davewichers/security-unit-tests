@@ -1,3 +1,0 @@
-set JAVA_HOME=C:\CASTestCases\jre1.8.0_25
-set Path=C:\CASTestCases\jre1.8.0_25\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\TortoiseSVN\bin
-C:\maven-3.2.3\bin\mvn.bat test
