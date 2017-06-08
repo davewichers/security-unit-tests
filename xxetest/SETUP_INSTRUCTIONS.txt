@@ -1,12 +1,21 @@
 Make sure you have Java installed! If you want to run different Java verions, be sure to set your %JAVA_HOME% and %PATH% variables accordingly.
+(Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
 
 To run test cases out of the command line:
 
 	- Run mvnTestReport.bat or mvnTestReport.sh
-	  (Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
 
 To run test cases out of a web browser:
 
 	- Run mvnDeployWebApp.bat or mvnDeployWebApp.sh
-	- when it gets to "[INFO] Press Ctrl-C to stop the container...", open the XXETestWebApp URL shortcut (or navigate to http://localhost:8080/xxetest)
-	- Press Ctrl-C in the command line when done
+	- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the XXETestWebApp URL shortcut (or navigate to http://localhost:8080/xxetest)
+	- Press Ctrl-C in the command line when done and then terminate the batch job
+
+To run test cases with Contrast:
+
+	- Follow the instructions above to deploy the web app
+	- Place your contrast.jar file in target/cargo/installs/apache-tomcat-9.0.0.M21/apache-tomcat-9.0.0.M21/bin
+	- Run deployWithContrast.bat or deploywithContrast.sh
+	- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the XXETestWebApp URL shortcut (or navigate to http://localhost:8080/xxetest)
+	- You should see the app running in Contrast
+	- Press Ctrl-C in the command line when done and then terminate the batch job

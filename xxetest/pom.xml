@@ -44,6 +44,46 @@
 </plugins>
 </build>
 
+<profiles>
+  <profile>
+    <id>deployWithContrast</id>
+    <build>
+      <plugins>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <archiveClasses>true</archiveClasses>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.cargo</groupId>
+          <artifactId>cargo-maven2-plugin</artifactId>
+          <version>1.6.3</version>
+          <configuration>
+
+            <!-- Container configuration -->
+            <container>
+              <containerId>tomcat9x</containerId>
+              <zipUrlInstaller>
+                <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M21/bin/apache-tomcat-9.0.0.M21.zip</url>
+              </zipUrlInstaller>
+            </container>
+
+            <configuration>
+              <properties>
+                <cargo.jvmargs>
+                  -javaagent:${basedir}\contrast.jar
+                </cargo.jvmargs>
+              </properties>
+            </configuration>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+</profiles>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
