@@ -1,4 +1,4 @@
-Make sure you have Java installed! If you want to run different Java verions, be sure to set your %JAVA_HOME% and %PATH% variables accordingly.
+Make sure you have Java and Maven installed! If you want to run different Java verions, be sure to set your %JAVA_HOME% and %PATH% variables accordingly.
 (Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
 
 To run test cases out of the command line:
