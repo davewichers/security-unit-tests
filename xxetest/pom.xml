@@ -73,7 +73,7 @@
             <configuration>
               <properties>
                 <cargo.jvmargs>
-                  -javaagent:${basedir}\contrast.jar
+                  -javaagent:${basedir}/contrast.jar
                 </cargo.jvmargs>
               </properties>
             </configuration>
