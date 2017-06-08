@@ -63,6 +63,8 @@ public class TransformerSafeDTD extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		TransformerFactory factory = TransformerFactory.newInstance();
 		try {
 			factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -87,6 +89,7 @@ public class TransformerSafeDTD extends HttpServlet {
         XMLInputFactory inputFactory = XMLInputFactory.newFactory();
         inputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);  // This works
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
 		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
         	
@@ -107,6 +110,9 @@ public class TransformerSafeDTD extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 

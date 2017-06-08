@@ -62,9 +62,12 @@ public class XMLInputSafeAccess extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 		xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
 		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
 	
@@ -86,6 +89,9 @@ public class XMLInputSafeAccess extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 
