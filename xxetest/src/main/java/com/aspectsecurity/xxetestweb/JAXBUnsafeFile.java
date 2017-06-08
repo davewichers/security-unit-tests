@@ -48,6 +48,8 @@ public class JAXBUnsafeFile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		JAXBContext jc = null;
 		try {
 			jc = JAXBContext.newInstance("com.aspectsecurity.xxetest.jaxb");
@@ -62,7 +64,8 @@ public class JAXBUnsafeFile extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+       
+       	response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">"); 
 //		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         response.getWriter().write("Expected result: Unsafe with Java 1.7. Safe with Java 1.8.\nActual Result: ");
         try {
@@ -85,6 +88,9 @@ public class JAXBUnsafeFile extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 

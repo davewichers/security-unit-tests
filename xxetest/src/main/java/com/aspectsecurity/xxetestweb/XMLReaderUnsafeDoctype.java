@@ -64,6 +64,8 @@ public class XMLReaderUnsafeDoctype extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 		SAXParser saxParser = null;
 		try {
@@ -73,6 +75,7 @@ public class XMLReaderUnsafeDoctype extends HttpServlet {
 			e.printStackTrace();
 		}
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
 		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
         	
@@ -92,6 +95,9 @@ public class XMLReaderUnsafeDoctype extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 

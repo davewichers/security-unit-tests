@@ -49,6 +49,8 @@ public class JAXBSafeXMLInputFactory extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		JAXBContext jc = null;
 		try {
 			jc = JAXBContext.newInstance("com.aspectsecurity.xxetest.jaxb");
@@ -66,6 +68,7 @@ public class JAXBSafeXMLInputFactory extends HttpServlet {
 		XMLInputFactory factory = XMLInputFactory.newInstance();
         factory.setProperty("javax.xml.stream.supportDTD", false);
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
         response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
         	Collection collection= (Collection)
@@ -87,6 +90,9 @@ public class JAXBSafeXMLInputFactory extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 

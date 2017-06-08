@@ -60,6 +60,8 @@ public class TransformerSafeAccess extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		TransformerFactory factory = TransformerFactory.newInstance();
 		System.out.println("Current3a TransformerFactory ACCESS_EXTERNAL_DTD property value: '" 
 				+ factory.getAttribute(XMLConstants.ACCESS_EXTERNAL_DTD) + "'");
@@ -78,6 +80,7 @@ public class TransformerSafeAccess extends HttpServlet {
 			e.printStackTrace();
 		} // not passing in stylesheet
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
 		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
         	
@@ -98,6 +101,9 @@ public class TransformerSafeAccess extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 

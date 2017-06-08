@@ -40,6 +40,9 @@ public class SchemaSafe extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		SchemaFactory factory = 
         		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		try {
@@ -66,6 +69,7 @@ public class SchemaSafe extends HttpServlet {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         StreamResult output = new StreamResult(baos);
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
         response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
         	
@@ -78,6 +82,9 @@ public class SchemaSafe extends HttpServlet {
         } catch (Exception ex) {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
+        }
+        finally {
+        	response.getWriter().write("</span></body></html>");
         }
 	}
 

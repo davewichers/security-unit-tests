@@ -1,5 +1,1 @@
-call mvn clean
-call mvn compile war:war 
-call mvn cargo:start 
-call mvn cargo:run < Nul
-call mvn cargo:stop
+call mvn clean compile war:war cargo:run

@@ -53,6 +53,8 @@ public class DocumentBuilderUnsafeValidationOff extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setHeader("X-Frame-Options", "DENY");
+		
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 		docBuilderFactory.setValidating(false);
 		DocumentBuilder docBuilder = null;
@@ -63,6 +65,7 @@ public class DocumentBuilderUnsafeValidationOff extends HttpServlet {
 			e.printStackTrace();
 		}
         
+        response.getWriter().write("<html><head><title>Results</title></head><body><span style=\"white-space: pre\">");
 		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe\n" : "Unsafe\n") + "Actual Result: ");
         try {
         	Document doc = docBuilder.parse (new ByteArrayInputStream(request.getParameter("payload").getBytes()));
@@ -74,6 +77,10 @@ public class DocumentBuilderUnsafeValidationOff extends HttpServlet {
 			response.getWriter().write("XML Parser is safe! :)\n\nStack Trace:\n");
 			ex.printStackTrace(response.getWriter());
         }
+        finally {
+        	response.getWriter().write("</span></body></html>");
+        }
+
 	}
 
 	/**
