@@ -13,9 +13,8 @@ To run test cases out of a web browser:
 
 To run test cases with Contrast:
 
-	- Follow the instructions above to deploy the web app
-	- Place your contrast.jar file in target/cargo/installs/apache-tomcat-9.0.0.M21/apache-tomcat-9.0.0.M21/bin
-	- Run deployWithContrast.bat or deploywithContrast.sh
+	- Place your contrast.jar file in the base directory (xxetest)
+	- Run mvnDeployWebAppWithContrast.bat or mvnDeployWebAppWithContrast.sh
 	- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the XXETestWebApp URL shortcut (or navigate to http://localhost:8080/xxetest)
 	- You should see the app running in Contrast
 	- Press Ctrl-C in the command line when done and then terminate the batch job
