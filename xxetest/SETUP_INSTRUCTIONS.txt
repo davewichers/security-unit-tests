@@ -18,3 +18,7 @@ To run test cases with Contrast:
 	- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the XXETestWebApp URL shortcut (or navigate to http://localhost:8080/xxetest)
 	- You should see the app running in Contrast
 	- Press Ctrl-C in the command line when done and then terminate the batch job
+
+NOTE: XOM's dependencies had conflicts with many other parser test cases. 
+In order to get all other test cases working, some of XOM's dependencies were excluded in the pom.xml file.
+In order to run all XOM test cases properly, comment out the exclusions in the XOM dependency (this will break several other test cases).

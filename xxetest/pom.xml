@@ -12,8 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
 <build>
@@ -111,16 +111,33 @@
    <artifactId>encoder</artifactId>
    <version>1.2.1</version>
   </dependency>
+  
+  <dependency>
+    <groupId>com.io7m.xom</groupId>
+    <artifactId>xom</artifactId>
+    <version>1.2.10</version>
+    <!-- IN ORDER TO GET XOM TESTS WORKING, COMMENT OUT THESE EXCLUSIONS -->
+    <exclusions>
+    	<exclusion>
+    		<groupId>xerces</groupId>
+    		<artifactId>xercesImpl</artifactId>
+    	</exclusion>
+    	<exclusion>
+    		<groupId>xalan</groupId>
+    		<artifactId>xalan</artifactId>
+    	</exclusion>
+    </exclusions>
+    <!-- IN ORDER TO GET XOM TESTS WORKING, COMMENT OUT THESE EXCLUSIONS -->
+  </dependency>
 
-    <!-- 
-    <dependency>
+     
+    <!--<dependency>
     	<groupId>xerces</groupId>
     	<artifactId>xerces</artifactId>
     	<version>1.4.4</version>
     	<type>jar</type>
     	<scope>compile</scope>
-    </dependency>
-    
+    </dependency>  
     <dependency>
     	<groupId>xerces</groupId>
     	<artifactId>xerces</artifactId>
