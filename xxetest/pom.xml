@@ -1,167 +1,154 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <groupId>com.aspectsecurity</groupId>
-  <artifactId>xxetest</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <name>xxetest</name>
-  <url>http://maven.apache.org</url>
+    <groupId>com.aspectsecurity</groupId>
+    <artifactId>xxetest</artifactId>
+    <version>0.2.1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+    <name>Java Security Unit Tests</name>
+    <url>https://github.com/aspectsecurity/security-unit-tests</url>
 
-<build>
-<plugins>
-	<plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <archiveClasses>true</archiveClasses>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-        <version>1.6.3</version>
-        <configuration>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
 
-    		  <!-- Container configuration -->
-    		  <container>
-    		    <containerId>tomcat9x</containerId>
-    		    <zipUrlInstaller>
-              <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M21/bin/apache-tomcat-9.0.0.M21.zip</url>
-            </zipUrlInstaller>
-    		  </container>
-
-      </configuration>
-      </plugin>
-</plugins>
-</build>
-
-<profiles>
-  <profile>
-    <id>deployWithContrast</id>
     <build>
-      <plugins>
-        <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.1.0</version>
-          <configuration>
-            <archiveClasses>true</archiveClasses>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.cargo</groupId>
-          <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.6.3</version>
-          <configuration>
-
-            <!-- Container configuration -->
-            <container>
-              <containerId>tomcat9x</containerId>
-              <zipUrlInstaller>
-                <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M21/bin/apache-tomcat-9.0.0.M21.zip</url>
-              </zipUrlInstaller>
-            </container>
-
-            <configuration>
-              <properties>
-                <cargo.jvmargs>
-                  -javaagent:${basedir}/contrast.jar
-                </cargo.jvmargs>
-              </properties>
-            </configuration>
-          </configuration>
-        </plugin>
-      </plugins>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archiveClasses>true</archiveClasses>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.6.3</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat8x</containerId>
+                        <zipUrlInstaller>
+                            <url>
+                                https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.16/bin/apache-tomcat-8.5.16.zip
+                            </url>
+                        </zipUrlInstaller>
+                    </container>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
-  </profile>
-</profiles>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+    <profiles>
+        <profile>
+            <id>deployWithContrast</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <archiveClasses>true</archiveClasses>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <configuration>
+                            <container>
+                                <containerId>tomcat9x</containerId>
+                                <zipUrlInstaller>
+                                    <url>
+                                        https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M21/bin/apache-tomcat-9.0.0.M21.zip
+                                    </url>
+                                </zipUrlInstaller>
+                            </container>
+                            <configuration>
+                                <properties>
+                                    <cargo.jvmargs>
+                                        -javaagent:${basedir}/contrast.jar
+                                    </cargo.jvmargs>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-    <dependency>
-		<groupId>javax</groupId>
-		<artifactId>javaee-api</artifactId>
-		<version>7.0</version>
-		<scope>provided</scope>
-	</dependency>
-		
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>3.1.0</version>
-		<scope>provided</scope>
-	</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.owasp.encoder</groupId>
+            <artifactId>encoder</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.io7m.xom</groupId>
+            <artifactId>xom</artifactId>
+            <version>1.2.10</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- vvv IN ORDER TO GET XOM TESTS WORKING, UNCOMMENT THIS DEPENDENCY (WILL BREAK MANY OTHER TESTS) vvv -->
+        <!-- <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.11.0</version>
+        </dependency> -->
+        <!-- ^^^ IN ORDER TO GET XOM TESTS WORKING, UNCOMMENT THIS DEPENDENCY (WILL BREAK MANY OTHER TESTS) ^^^ -->
+    </dependencies>
 
-  <dependency>
-   <groupId>org.owasp.encoder</groupId>
-   <artifactId>encoder</artifactId>
-   <version>1.2.1</version>
-  </dependency>
-  
-  <dependency>
-    <groupId>com.io7m.xom</groupId>
-    <artifactId>xom</artifactId>
-    <version>1.2.10</version>
-    <!-- IN ORDER TO GET XOM TESTS WORKING, COMMENT OUT THESE EXCLUSIONS -->
-    <exclusions>
-    	<exclusion>
-    		<groupId>xerces</groupId>
-    		<artifactId>xercesImpl</artifactId>
-    	</exclusion>
-    	<exclusion>
-    		<groupId>xalan</groupId>
-    		<artifactId>xalan</artifactId>
-    	</exclusion>
-    </exclusions>
-    <!-- IN ORDER TO GET XOM TESTS WORKING, COMMENT OUT THESE EXCLUSIONS -->
-  </dependency>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.12</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
-     
-    <!--<dependency>
-    	<groupId>xerces</groupId>
-    	<artifactId>xerces</artifactId>
-    	<version>1.4.4</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>  
-    <dependency>
-    	<groupId>xerces</groupId>
-    	<artifactId>xerces</artifactId>
-    	<version>1.4.4</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>xerces</groupId>
-    	<artifactId>xercesImpl</artifactId>
-    	<version>2.10.0</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>-->
-  </dependencies>
-  
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.12</version>
-      </plugin>
-    </plugins>
-  </reporting>
-  
 </project>
