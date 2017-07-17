@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE contact [
+        <!ENTITY xxetest1 SYSTEM "../../../../src/main/resources/xxe.txt">
+        ]>
+<java version="1.7.0_25" class="java.beans.XMLDecoder">
+<object class="com.aspectsecurity.xxetestweb.XMLTestBean">
+    <void property="element">
+        <string>&xxetest1;</string>
+    </void>
+</object>
+</java>
