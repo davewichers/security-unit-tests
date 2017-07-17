@@ -19,11 +19,15 @@
     path += File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "com" +
             File.separator + "aspectsecurity" + File.separator + "xxetestweb";
 
+    BufferedReader br = null;
     if (request.getParameter("type").equals("xml")) {
-        BufferedReader br = new BufferedReader(new FileReader(path + File.separator + "Results.java"));
-        while ((line = br.readLine()) != null) {
-            code.add(line);
-        }
+        br = new BufferedReader(new FileReader(path + File.separator + "Results.java"));
+    }
+    else if (request.getParameter("type").equals("xmlquery")) {
+        br = new BufferedReader(new FileReader(path + File.separator + "XmlQueryResults.java"));
+    }
+    while ((line = br.readLine()) != null) {
+        code.add(line);
     }
 
     response.getWriter().write("<pre>");

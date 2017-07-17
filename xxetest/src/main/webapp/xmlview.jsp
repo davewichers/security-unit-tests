@@ -8,26 +8,7 @@
 </head>
 <body>
 
-<h1><%= request.getParameter("test") %></h1>
 <%
-    // special messages for certain test cases
-    if (request.getParameter("var").equals("documentbuildersafeexpansion")) {
-        response.getWriter().write("<h2 style=\"color:red\">NOTE: Although this is supposed to make DocumentBuilder safe according to Java documentation, it doesn't</h2>");
-    }
-    if (request.getParameter("var").contains("xom")) {
-        response.getWriter().write("<h2 style=\"color:red\">Make sure you comment out XOM's dependency exclusions in the pom.xml before using this test</h2>");
-    }
-    if (request.getParameter("var").equals("transformersafeaccess") || request.getParameter("var").equals("xmlinputsafeaccess")) {
-        if (!System.getProperty("java.version").startsWith("1.8"))
-        response.getWriter().write("<h2 style=\"color:red\">NOTE: This fix is not available for your current Java version</h2>");
-    }
-%>
-<a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
-<br /> <br />
-<h3>Enter an XML file containing an entity:</h3>
-<textarea rows="15" cols="150" name="payload" form="theform">
-<%
-
     // Anti-Caching Controls
     response.setHeader("Cache-Control","no-store, no-cache, must-revalidate");  // HTTP 1.1 controls
     response.setHeader("Pragma","no-cache");    // HTTP 1.0 controls
@@ -35,13 +16,63 @@
 
     // Anti-Clickjacking Controls
     response.setHeader("X-Frame-Options", "DENY");
+%>
 
+<h2 style="color:red">
+<%
+    final int javaVersionMajor = Integer.parseInt(Runtime.class.getPackage().getImplementationVersion().substring(2, 3));
+    int javaVersionUpdate;
+    if (Runtime.class.getPackage().getImplementationVersion().length() > 5) {
+        javaVersionUpdate = Integer.parseInt(Runtime.class.getPackage().getImplementationVersion().substring(6));
+    }
+    else {
+        javaVersionUpdate = 0;
+    }
+
+    // special messages for certain test cases
+    if (request.getParameter("var").equals("documentbuildersafeexpansion")) {
+        out.println("NOTE: Although this is supposed to make DocumentBuilder safe according to Java documentation, it doesn't");
+    }
+    if (request.getParameter("var").contains("xom")) {
+        out.println("Make sure you comment out XOM's dependency exclusions in the pom.xml before using this test");
+    }
+    if (request.getParameter("var").contains("access")) {
+        if ((javaVersionMajor == 7 && javaVersionUpdate < 40) || javaVersionMajor <= 6) {
+            out.println("NOTE: This fix is not available for your current Java version");
+        }
+    }
+%>
+</h2>
+<h1><%= request.getParameter("test") %></h1>
+<a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
+<br /><br />
+<h3>
+<%
+    if (request.getParameter("var").contains("xomsafe")) {
+        out.println("XOM will create an XML object that simulates the following XML file:");
+    }
+    else {
+        out.println("Enter an XML file containing an entity:");
+    }
+%>
+</h3>
+<textarea title="Payload" rows="15" cols="150" name="payload" form="theform"
+<%
+    if (request.getParameter("var").contains("xomsafe")) {
+        out.println(" readonly=\"readonly\"");
+    }
+%>
+>
+<%
     // print out the xml file in the text area
     StringBuilder contentBuilder = new StringBuilder();
     try {
         BufferedReader in;
         if (request.getParameter("var").contains("jaxb")) {
             in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbook1web.xml")));
+        }
+        else if (request.getParameter("var").contains("xmldecoder")) {
+            in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbeanweb.xml")));
         }
         else {
             in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetest1web.xml")));
