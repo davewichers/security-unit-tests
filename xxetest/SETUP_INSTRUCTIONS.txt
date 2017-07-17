@@ -20,5 +20,5 @@ To run test cases with Contrast:
 	- Press Ctrl-C in the command line when done and then terminate the batch job
 
 NOTE: XOM's dependencies had conflicts with many other parser test cases. 
-In order to get all other test cases working, some of XOM's dependencies were excluded in the pom.xml file.
-In order to run all XOM test cases properly, comment out the exclusions in the XOM dependency (this will break several other test cases).
+In order to get all other test cases working, the Xerces dependency was excluded in the pom.xml file.
+In order to run all XOM test cases properly, uncomment the Xerces dependency (this will break several other test cases).
