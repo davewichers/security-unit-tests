@@ -1,9 +1,9 @@
 package com.aspectsecurity.xxetestweb;
 
-import org.apache.xml.utils.PrefixResolver;
+import net.sf.saxon.s9api.*;
 import org.apache.xpath.XPathAPI;
+import org.owasp.encoder.Encode;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.servlet.ServletException;
@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathVariableResolver;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -61,6 +63,7 @@ public class XmlQueryResults extends HttpServlet {
                     // testing the result
                     printResults(expectedSafe, (NodeList) new Object(), response);
                     //printResults(expectedSafe, new ArrayList<String>(), request, response);
+
                 } catch (Exception ex) {
                     response.getWriter().write("<html><body>");
                     response.getWriter().write(ex.toString());
@@ -299,6 +302,166 @@ public class XmlQueryResults extends HttpServlet {
             }
             //endregion
 
+            //region Saxon: Unsafe when Using String Concatenation on XPath Expression Example
+            /*
+             * Proves that Saxon is vulnerable to injection when using string concatenation on the XPath expression
+             */
+            case "saxonunsafeconcat": {
+                final boolean expectedSafe = false;
+
+                try {
+                    // parsing the XML
+                    Processor processor = new Processor(false);
+                    net.sf.saxon.s9api.DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                    XdmNode node = documentBuilder.build(new StreamSource(getClass().getResourceAsStream("/students.xml")));
+
+                    // querying the XML
+                    XPathCompiler compiler = processor.newXPathCompiler();
+                    String query = "/Students/Student[FirstName/text()='" + request.getParameter("payload") + "']"; // unsafe!
+                    XPathExecutable executable = compiler.compile(query);
+                    XPathSelector selector = executable.load();
+                    selector.setContextItem(node);
+                    selector.evaluate();
+
+                    ArrayList<String> resultList = new ArrayList<>();
+                    for (XdmValue value : selector) {
+                        resultList.add(value.toString());
+                    }
+
+                    // testing the result
+                    printResults(expectedSafe, resultList, response);
+
+                } catch (Exception ex) {
+                    response.getWriter().write("<html><body>");
+                    response.getWriter().write(ex.toString());
+                    response.getWriter().write("</body></html>");
+                }
+
+                break;
+            }
+            //endregion
+
+            //region Saxon: Unsafe when Using String Placeholders on XPath Expression Example
+            /*
+             * Proves that Saxon is vulnerable to injection when using string placeholders on the XPath expression
+             */
+            case "saxonunsafeplaceholder": {
+                final boolean expectedSafe = false;
+
+                try {
+                    // parsing the XML
+                    Processor processor = new Processor(false);
+                    net.sf.saxon.s9api.DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                    XdmNode node = documentBuilder.build(new StreamSource(getClass().getResourceAsStream("/students.xml")));
+
+                    // querying the XML
+                    XPathCompiler compiler = processor.newXPathCompiler();
+                    String query = String.format("/Students/Student[FirstName/text()='%s']", request.getParameter("payload")); // unsafe!
+                    XPathExecutable executable = compiler.compile(query);
+                    XPathSelector selector = executable.load();
+                    selector.setContextItem(node);
+                    selector.evaluate();
+
+                    ArrayList<String> resultList = new ArrayList<>();
+                    for (XdmValue value : selector) {
+                        resultList.add(value.toString());
+                    }
+
+                    // testing the result
+                    printResults(expectedSafe, resultList, response);
+
+                } catch (Exception ex) {
+                    response.getWriter().write("<html><body>");
+                    response.getWriter().write(ex.toString());
+                    response.getWriter().write("</body></html>");
+                }
+
+                break;
+            }
+            //endregion
+
+            //region Saxon: Safe when Parameterizing on XPath Expression Example
+            /*
+             * Proves that Saxon is safe from injection when using a QName to parameterize the XPath expression
+             */
+            case "saxonsafeparam": {
+                final boolean expectedSafe = true;
+
+                try {
+                    // parsing the XML
+                    Processor processor = new Processor(false);
+                    net.sf.saxon.s9api.DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                    XdmNode node = documentBuilder.build(new StreamSource(getClass().getResourceAsStream("/students.xml")));
+
+                    // querying the XML
+                    XPathCompiler compiler = processor.newXPathCompiler();
+                    net.sf.saxon.s9api.QName qname = new net.sf.saxon.s9api.QName("name");
+                    compiler.declareVariable(qname);
+                    String query = "/Students/Student[FirstName/text()=$name]"; // safe!
+                    XPathExecutable executable = compiler.compile(query);
+                    XPathSelector selector = executable.load();
+                    selector.setContextItem(node);
+                    selector.setVariable(qname, XdmValue.makeValue(request.getParameter("payload")));
+                    selector.evaluate();
+
+                    ArrayList<String> resultList = new ArrayList<>();
+                    for (XdmValue value : selector) {
+                        resultList.add(value.toString());
+                    }
+
+                    // testing the result
+                    printResults(expectedSafe, resultList, response);
+
+                } catch (Exception ex) {
+                    response.getWriter().write("<html><body>");
+                    response.getWriter().write(ex.toString());
+                    response.getWriter().write("</body></html>");
+                }
+
+                break;
+            }
+            //endregion
+
+            //region Saxon: Safe when Escaping Apostrophes on XPath Expression Example
+            /*
+             * Proves that Saxon is safe from injection when using string concatenation while escaping apostrophes on
+             * the XPath expression
+             */
+            case "saxonsafeescape": {
+                final boolean expectedSafe = true;
+
+                try {
+                    // parsing the XML
+                    Processor processor = new Processor(false);
+                    net.sf.saxon.s9api.DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                    XdmNode node = documentBuilder.build(new StreamSource(getClass().getResourceAsStream("/students.xml")));
+
+                    // querying the XML
+                    XPathCompiler compiler = processor.newXPathCompiler();
+                    String query = "/Students/Student[FirstName/text()='" + request.getParameter("payload").replace("'", "&apos;") + "']"; // safe!
+                    XPathExecutable executable = compiler.compile(query);
+                    XPathSelector selector = executable.load();
+                    selector.setContextItem(node);
+                    selector.evaluate();
+
+                    ArrayList<String> resultList = new ArrayList<>();
+                    for (XdmValue value : selector) {
+                        resultList.add(value.toString());
+                    }
+
+                    // testing the result
+                    printResults(expectedSafe, resultList, response);
+
+                } catch (Exception ex) {
+                    response.getWriter().write("<html><body>");
+                    response.getWriter().write(ex.toString());
+                    response.getWriter().write("</body></html>");
+                }
+
+                break;
+            }
+            //endregion
+
             default:
                 response.getWriter().write("<html><head><title>Error</title></head><body>");
                 response.getWriter().write("Error: Test case not found for \"" + request.getParameter("var") + "\"");
@@ -308,7 +471,7 @@ public class XmlQueryResults extends HttpServlet {
     }
 
     /**
-     * Prints the results of the XPath test case
+     * Prints the results of the XPath test case that uses NodeList
      * @param expectedSafe	whether the test is supposed to be safe or not
      * @param nodeList	    the result of the XPath query
      * @param response		the servlet response
@@ -324,7 +487,7 @@ public class XmlQueryResults extends HttpServlet {
         response.getWriter().write("<html><head><title>Results</title></head><body><h3>");
         response.getWriter().write("Expected result: " + (expectedSafe ? "Safe" : "Unsafe") + "<br />");
         response.getWriter().write("Actual result: " + (actuallySafe ? "XPath is safe! :)" : "Unsafe query was injected! :(") + "</h3><br /><br />");
-        response.getWriter().write("<b>Results of Query (" + (actuallySafe ? "Should be empty result" : "Should be all Students") + "):</b><br /><pre>");
+        response.getWriter().write("<b>Results of Query (" + (actuallySafe ? "Should only be the entered Student or empty result" : "Should be all Students") + "):</b><br /><pre>");
 
         // print all Node information
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -347,42 +510,30 @@ public class XmlQueryResults extends HttpServlet {
     }
 
     /**
-     * Prints the results of the XQuery test case
+     * Prints the results of the Saxon XPath or XQuery test case
      * @param expectedSafe	whether the test is supposed to be safe or not
      * @param resultList	the result of the XQuery query
-     * @param request       the servlet request
      * @param response		the servlet response
      * @throws IOException	in case the response has an error
      */
-    private void printResults(boolean expectedSafe, ArrayList<String> resultList, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void printResults(boolean expectedSafe, ArrayList<String> resultList, HttpServletResponse response) throws IOException {
 
-        /*boolean actuallySafe = true;
-        if (nodeList.getLength() > 1) {
+        boolean actuallySafe = true;
+        if (resultList.size() > 1) {
             actuallySafe = false;
         }
 
         response.getWriter().write("<html><head><title>Results</title></head><body><h3>");
         response.getWriter().write("Expected result: " + (expectedSafe ? "Safe" : "Unsafe") + "<br />");
         response.getWriter().write("Actual result: " + (actuallySafe ? "XPath is safe! :)" : "Unsafe query was injected! :(") + "</h3><br /><br />");
-        response.getWriter().write("<b>Results of Query (" + (actuallySafe ? "Should only be the entered Student" : "Should be all Students") + "):</b><br /><pre>");
+        response.getWriter().write("<b>Results of Query (" + (actuallySafe ? "Should only be the entered Student or empty result" : "Should be all Students") + "):</b><br /><pre>");
 
-        for (int i = 0; i < resultList.getLength(); i++) {
-            response.getWriter().write("Student " + nodeList.item(i).getAttributes().getNamedItem("studentId").getTextContent() + ":<br />");
-            for (int j = 0; j < nodeList.item(i).getChildNodes().getLength(); j++) {
-                switch (j) {
-                    case 1: response.getWriter().write("\tLast Name:\t");   break;
-                    case 3: response.getWriter().write("\tFirst Name:\t");  break;
-                    case 5: response.getWriter().write("\tUsername:\t");    break;
-                    case 7: response.getWriter().write("\tPassword:\t");    break;
-                }
-                if (!((j % 2) == 0)) {
-                    response.getWriter().write(nodeList.item(i).getChildNodes().item(j).getTextContent() + "<br />");
-                }
-            }
+        for (String student : resultList) {
+            response.getWriter().write(Encode.forHtmlContent(student) + "<br />");
         }
 
         response.getWriter().write("</pre><br /><br /><br /><a href=\"xmlquery.jsp\">&lt&lt&lt back to tests</a>");
-        response.getWriter().write("</body></html>");*/
+        response.getWriter().write("</body></html>");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
