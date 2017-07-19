@@ -6,6 +6,8 @@ import com.aspectsecurity.xxetest.jaxb.Collection;
 import nu.xom.Builder;
 import nu.xom.DocType;
 import nu.xom.Element;
+import org.apache.xerces.jaxp.SAXParserFactoryImpl;
+import org.apache.xerces.jaxp.SAXParserImpl;
 import org.owasp.encoder.Encode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -795,14 +797,14 @@ public class Results extends HttpServlet {
 			 * Proves that XMLDecoder parses entities in Java versions 1.7u45 and earlier and does not in Java versions
 			 * 1.7u51 and later.
 			 * In Java versions 1.7u45 and earlier, the com.sun.beans.decoder.DocumentHandler that belongs to the
-			 * XMLDecoder object overrides the resolveEntity() method from the org.xml.sax.helpers.DefaultHandler class
-			 * (which is implemented from the org.xml.sax.EntityResolver interface) in order to get it to actually
-			 * resolve entities. In Java versions 1.7u51 and later, this method implementation is removed, causing it to
-			 * default to DefaultHandler's implementation which is a no op.
+			 * XMLDecoder object doesn't override the resolveEntity() method from the org.xml.sax.helpers.DefaultHandler
+			 * class (which is implemented from the org.xml.sax.EntityResolver interface), where the default behavior
+			 * resolve entities. In Java versions 1.7u51 and later, this method is implemented with a blank InputSource,
+			 * causing it to ignore the resolution of entities.
 			 * Since this is purely based in the XMLDecoder source code, there is no way to make it safe from malicious
 			 * entities in Java 1.7u45 and earlier, and no way to force it to be unsafe in Java 1.7u51 and later.
 			 */
-			case "xmldecoderunsafe": {
+			case "xmldecoder": {
 				boolean expectedSafe = true;
 				if ((javaVersionMajor == 7 && javaVersionUpdate <= 45) || javaVersionMajor <= 6) {
 					expectedSafe = false;
@@ -1191,6 +1193,7 @@ public class Results extends HttpServlet {
 
 			//region XOM: Safe by Default Example
 			/*
+			 * Proves that XOM's built in methods do not have the ability to add an external entity reference.
 			 * I emailed Elliote Rusty Harold, creator of XOM, about this test case and he said, "There's no way to
 			 * insert an entity reference directly in XOM." Therefore, XOM is safe from injection if using the methods
 			 * found in this test.
@@ -1227,22 +1230,13 @@ public class Results extends HttpServlet {
 
 			//region XOM: Unsafe when using an InputStream Example
 			/*
-			 * When building the XOM Document from an unsafe XML InputStream, the Document parses the DTD.
+			 * Proves that when building the XOM Document from an unsafe XML InputStream, the Document parses the DTD
 			 */
 			case "xomunsafeinputstream": {
 				final boolean expectedSafe = false;
 
-				// creating the parser
-				SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-				SAXParser saxParser;
-
 				// parsing the XML
 				try {
-					saxParser = saxParserFactory.newSAXParser();
-					SAXHandler handler = new SAXHandler();
-					XMLReader xreader = saxParser.getXMLReader();
-					xreader.setContentHandler(handler);
-
 					Builder builder = new Builder();
 					nu.xom.Document doc = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));	// unsafe!
 
@@ -1260,18 +1254,18 @@ public class Results extends HttpServlet {
 
 			//region XOM: Unsafe when Building from an Unsafe XMLReader Example
 			/*
-			 * When building the XOM Document from an unsafe XML InputStream, the Document parses the DTD.
+			 * Proves that when building the XOM Document from an unsafe XMLReader, the Document parses the DTD
 			 */
 			case "xomunsafexmlreader": {
 				final boolean expectedSafe = false;
 
 				// creating the parser
-				SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-				SAXParser saxParser;
+				SAXParserFactoryImpl saxParserFactory = new SAXParserFactoryImpl();
+				SAXParserImpl saxParser;
 
 				// parsing the XML
 				try {
-					saxParser = saxParserFactory.newSAXParser();
+					saxParser = (SAXParserImpl) saxParserFactory.newSAXParser();
 					SAXHandler handler = new SAXHandler();
 					XMLReader xreader = saxParser.getXMLReader();
 					xreader.setContentHandler(handler);
