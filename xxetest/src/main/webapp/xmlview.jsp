@@ -33,9 +33,6 @@
     if (request.getParameter("var").equals("documentbuildersafeexpansion")) {
         out.println("NOTE: Although this is supposed to make DocumentBuilder safe according to Java documentation, it doesn't");
     }
-    if (request.getParameter("var").contains("xom")) {
-        out.println("Make sure you comment out XOM's dependency exclusions in the pom.xml before using this test");
-    }
     if (request.getParameter("var").contains("access")) {
         if ((javaVersionMajor == 7 && javaVersionUpdate < 40) || javaVersionMajor <= 6) {
             out.println("NOTE: This fix is not available for your current Java version");

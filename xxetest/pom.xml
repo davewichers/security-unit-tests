@@ -19,6 +19,7 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
@@ -49,6 +50,7 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
                         <version>3.1.0</version>
                         <configuration>
@@ -61,10 +63,10 @@
                         <version>1.6.3</version>
                         <configuration>
                             <container>
-                                <containerId>tomcat9x</containerId>
+                                <containerId>tomcat8x</containerId>
                                 <zipUrlInstaller>
                                     <url>
-                                        https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M21/bin/apache-tomcat-9.0.0.M21.zip
+                                        https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.16/bin/apache-tomcat-8.5.16.zip
                                     </url>
                                 </zipUrlInstaller>
                             </container>
@@ -94,6 +96,12 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>javax.mail</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -132,13 +140,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- vvv IN ORDER TO GET XOM TESTS WORKING, UNCOMMENT THIS DEPENDENCY (WILL BREAK MANY OTHER TESTS) vvv -->
-        <!-- <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
+        <dependency>
+            <groupId>customsaxon</groupId>
+            <artifactId>Custom-Saxon-HE</artifactId>
+            <version>9.8.0-3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>customxerces</groupId>
+            <artifactId>Custom-xercesImpl</artifactId>
             <version>2.11.0</version>
-        </dependency> -->
-        <!-- ^^^ IN ORDER TO GET XOM TESTS WORKING, UNCOMMENT THIS DEPENDENCY (WILL BREAK MANY OTHER TESTS) ^^^ -->
+        </dependency>
     </dependencies>
 
     <reporting>
