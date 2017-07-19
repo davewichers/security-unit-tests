@@ -102,7 +102,7 @@
 
     <li><a href="https://docs.oracle.com/javase/7/docs/api/java/beans/XMLDecoder.html">java.beans.<b>XMLDecoder</b> (link to Javadoc)</a>
         <ul>
-            <li><a href="xmlview.jsp?title=Unsafe%20XMLDecoder&test=XMLDecoder%3A%20Always%20Safe%20%28Always%20Unsafe%20in%20Java%201.7u45%20and%20earlier%29%20Example&var=xmldecoderunsafe">Always Safe (Always Unsafe in Java 1.7u45 and earlier) Example</a></li>
+            <li><a href="xmlview.jsp?title=Unsafe%20XMLDecoder&test=XMLDecoder%3A%20Always%20Safe%20%28Always%20Unsafe%20in%20Java%201.7u45%20and%20earlier%29%20Example&var=xmldecoder">Always Safe (Always Unsafe in Java 1.7u45 and earlier) Example</a></li>
         </ul>
         <br />
     </li>
