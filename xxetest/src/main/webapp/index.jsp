@@ -7,7 +7,7 @@
 <body>
 
 <h1>XXE Injection Vulnerability Tests for Java XML Parsers</h1>
-<a href="index.jsp">XXE Injection Tests</a> | <a href="xmlquery.jsp">XPath and XQuery Injection Tests</a>
+<a href="index.jsp">XXE Injection Tests</a> | <a href="xpath.jsp">XPath Injection Tests</a> | <a href="xquery.jsp">XQuery Injection Tests</a>
 <%
     //Anti-Caching Controls
     response.setHeader("Cache-Control","no-store, no-cache, must-revalidate"); //HTTP 1.1 controls

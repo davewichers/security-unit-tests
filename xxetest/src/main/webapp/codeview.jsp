@@ -23,9 +23,13 @@
     if (request.getParameter("type").equals("xml")) {
         br = new BufferedReader(new FileReader(path + File.separator + "Results.java"));
     }
-    else if (request.getParameter("type").equals("xmlquery")) {
-        br = new BufferedReader(new FileReader(path + File.separator + "XmlQueryResults.java"));
+    else if (request.getParameter("type").equals("xpath")) {
+        br = new BufferedReader(new FileReader(path + File.separator + "XPathResults.java"));
     }
+    else if (request.getParameter("type").equals("xquery")) {
+        br = new BufferedReader(new FileReader(path + File.separator + "XQueryResults.java"));
+    }
+
     while ((line = br.readLine()) != null) {
         code.add(line);
     }

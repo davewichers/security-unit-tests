@@ -4,16 +4,24 @@
 
     <groupId>com.aspectsecurity</groupId>
     <artifactId>xxetest</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.2.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>Java Security Unit Tests</name>
     <url>https://github.com/aspectsecurity/security-unit-tests</url>
 
+    <repositories>
+        <repository>
+            <id>spring</id>
+            <name>Spring Repository</name>
+            <url>http://repo.spring.io/plugins-release/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <build>
@@ -110,6 +118,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>javax.xml.xquery</groupId>
+            <artifactId>xqj-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.owasp.encoder</groupId>
             <artifactId>encoder</artifactId>
             <version>1.2.1</version>
@@ -144,16 +157,11 @@
             <groupId>customsaxon</groupId>
             <artifactId>Custom-Saxon-HE</artifactId>
             <version>9.8.0-3</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>customsaxon</groupId>
+            <artifactId>Custom-saxon9pe</artifactId>
+            <version>9</version>
         </dependency>
         <dependency>
             <groupId>customxerces</groupId>
