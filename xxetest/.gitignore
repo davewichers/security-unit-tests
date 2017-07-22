@@ -1,0 +1,7 @@
+/target
+/.idea
+/.settings
+/.classpath
+/.project
+/contrast.jar
+/*.iml
