@@ -8,6 +8,7 @@ import nu.xom.DocType;
 import nu.xom.Element;
 import org.apache.xerces.jaxp.SAXParserFactoryImpl;
 import org.apache.xerces.jaxp.SAXParserImpl;
+import org.jdom2.input.SAXBuilder;
 import org.owasp.encoder.Encode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -386,6 +387,185 @@ public class Results extends HttpServlet {
 
 					// testing the result
 					printResults(expectedSafe, discount, response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Unsafe by Default Example
+			/*
+			 * Proves that SAXBuilder parses entities by default
+			 */
+			case "saxbuilderunsafedefault": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Safe when Disallowing DOCTYPE Declarations Example
+			/*
+			 * Proves that disallowing DOCTYPE declarations for the SAXBuilder makes it throw an exception when
+			 * it sees a DTD
+			 */
+			case "saxbuildersafedoctype": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl",true);
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Unsafe when Allowing DOCTYPE Declarations Example
+			/*
+			 * Proves that allowing DOCTYPE declarations for the SAXBuilder allows it to parse entities
+			 */
+			case "saxbuilderunsafedoctype": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl",false);
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Unsafe when Disabling External General and Parameter Entities Example
+			/*
+			 * Proves that disabling external general and parameter entities for the SAXBuilder leaves it vulnerable to
+			 * malicious entities
+			 */
+			case "saxbuilderunsafeexternaloff": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					builder.setFeature("http://xml.org/sax/features/external-general-entities", false);
+					builder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Unsafe when Enabling External General and Parameter Entities Example
+			/*
+			 * Proves that enabling external general and parameter entities for the SAXBuilder leaves it vulnerable to
+			 * malicious entities
+			 */
+			case "saxbuilderunsafeexternalon": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					builder.setFeature("http://xml.org/sax/features/external-general-entities", true);
+					builder.setFeature("http://xml.org/sax/features/external-parameter-entities", true);
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Safe when Disabling Entity Expansion Example
+			/*
+			 * Proves that disabling entity expansion for the SAXBuilder makes it safe from injection
+			 */
+			case "saxbuildersafeexpand": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					builder.setExpandEntities(false);
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
+				}
+				catch (Exception ex) {
+					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
+				}
+
+				break;
+			}
+			//endregion
+
+			//region SAXBuilder: Unsafe when Enabling Entity Expansion Example
+			/*
+			 * Proves that enabling entity expansion for the SAXBuilder makes it unsafe from injection
+			 */
+			case "saxbuilderunsafeexpand": {
+				final boolean expectedSafe = false;
+
+				// parsing the XML
+				try {
+					SAXBuilder builder = new SAXBuilder();
+					builder.setExpandEntities(true);
+					org.jdom2.Document document = builder.build(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+					org.jdom2.Element root = document.getRootElement();
+
+					// testing the result
+					printResults(expectedSafe, root.getText(), response);
 				}
 				catch (Exception ex) {
 					printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
