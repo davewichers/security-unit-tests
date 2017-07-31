@@ -49,7 +49,7 @@
 <br>
 <form id="theform" action="xpathresults" autocomplete="off">
     <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
-    <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&apos;a&apos;=&apos;a</mark> to the end.</h3>
+    <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&apos; or &apos;a&apos;=&apos;a</mark> to the end.</h3>
     Enter first name: <input title="Payload" name="payload" value="Bobby&apos; or &apos;a&apos;=&apos;a" />
     <input type="submit" value="Submit">
 </form>
