@@ -16,6 +16,11 @@
             <name>Spring Repository</name>
             <url>http://repo.spring.io/plugins-release/</url>
         </repository>
+        <repository>
+            <id>basex</id>
+            <name>BaseX Repository</name>
+            <url>http://files.basex.org/maven/</url>
+        </repository>
     </repositories>
 
     <properties>
@@ -93,6 +98,8 @@
     </profiles>
 
     <dependencies>
+
+        <!-- Java Tools -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -117,11 +124,8 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.xml.xquery</groupId>
-            <artifactId>xqj-api</artifactId>
-            <version>1.0</version>
-        </dependency>
+
+        <!-- XML Parsers -->
         <dependency>
             <groupId>com.io7m.xom</groupId>
             <artifactId>xom</artifactId>
@@ -147,16 +151,6 @@
             <version>2.0.6</version>
         </dependency>
         <dependency>
-            <groupId>commons-jxpath</groupId>
-            <artifactId>commons-jxpath</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.owasp.encoder</groupId>
-            <artifactId>encoder</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
             <version>2.7.2</version>
@@ -167,6 +161,38 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- XPath APIs -->
+        <dependency>
+            <groupId>commons-jxpath</groupId>
+            <artifactId>commons-jxpath</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ximpleware</groupId>
+            <artifactId>vtd-xml</artifactId>
+            <version>2.13</version>
+        </dependency>
+
+        <!-- XQuery APIs -->
+        <dependency>
+            <groupId>javax.xml.xquery</groupId>
+            <artifactId>xqj-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.xqj</groupId>
+            <artifactId>basex-xqj</artifactId>
+            <version>8.6</version>
+        </dependency>
+
+
+        <!-- Custom Dependencies (META-INF/services removed) -->
         <dependency>
             <groupId>customsaxon</groupId>
             <artifactId>Custom-Saxon-HE</artifactId>
@@ -182,6 +208,14 @@
             <artifactId>Custom-xercesImpl</artifactId>
             <version>2.11.0</version>
         </dependency>
+
+        <!-- Other -->
+        <dependency>
+            <groupId>org.owasp.encoder</groupId>
+            <artifactId>encoder</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
     </dependencies>
 
     <reporting>
