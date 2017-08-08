@@ -77,6 +77,8 @@ public class Results extends HttpServlet {
 
 		response.setHeader("X-Frame-Options", "DENY");	// Anti-Clickjacking Controls
 
+		response.getWriter().write("<html><head><title>Results</title></head><body>");
+
 		/*
 		 * Detects which test case we're running, runs it, and prints the results
 		 */
@@ -1466,11 +1468,12 @@ public class Results extends HttpServlet {
 			//endregion
 
 			default:
-				response.getWriter().write("<html><head><title>Error</title></head><body>");
 				response.getWriter().write("Error: Test case not found for \"" + request.getParameter("var") + "\"");
-				response.getWriter().write("</body></html>");
 				break;
 		}
+
+		response.getWriter().write("<br /><br /><br /><a href=\"index.jsp\">&lt&lt&lt back to tests</a>");
+		response.getWriter().write("</body></html>");
 	}
 
 	/**
@@ -1482,7 +1485,7 @@ public class Results extends HttpServlet {
 	 */
 	private void printResults(boolean expectedSafe, String xmlContent, HttpServletResponse response) throws IOException {
 
-		response.getWriter().write("<html><head><title>Results</title></head><body><h3>");
+		response.getWriter().write("<h3>");
 		response.getWriter().write("Expected result: " + (expectedSafe ? "Safe" : "Unsafe") + "<br />" + "Actual Result: ");
 
 		if (xmlContent.contains("SUCCESSFUL") || xmlContent.startsWith("SUCC")) {
@@ -1502,9 +1505,6 @@ public class Results extends HttpServlet {
 				response.getWriter().write("<b>" + "XML Content:" + "</b>" + "<br />" + Encode.forHtmlContent(xmlContent));
 			}
 		}
-
-		response.getWriter().write("<br /><br /><br /><a href=\"index.jsp\">&lt&lt&lt back to tests</a>");
-		response.getWriter().write("</body></html>");
 	}
 
 	/**
