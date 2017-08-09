@@ -13,6 +13,12 @@
         <Password>correcthorsebatterystaple</Password>
     </Student>
     <Student studentId="3">
+        <LastName>Tables</LastName>
+        <FirstName>Bobby&quot; or &quot;a&quot;=&quot;a</FirstName>
+        <Username>btables3</Username>
+        <Password>correcthorsebatterystaple</Password>
+    </Student>
+    <Student studentId="4">
         <LastName>Skywalker</LastName>
         <FirstName>Anakin</FirstName>
         <Username>sithlord</Username>

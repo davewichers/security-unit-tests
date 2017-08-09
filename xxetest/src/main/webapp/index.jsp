@@ -31,13 +31,13 @@
 
         out.println("Java Version: " + Runtime.class.getPackage().getImplementationVersion() + "<br>");
         if (javaVersionMajor >= 8) {
-            out.println("Unsafe Tests: 21 <br> Safe Tests: 17");
+            out.println("Unsafe Tests: 26 <br> Safe Tests: 19");
         }
         else if (javaVersionMajor == 7 && javaVersionUpdate >= 51) {
-            out.println("Unsafe Tests: 22 <br> Safe Tests: 16");
+            out.println("Unsafe Tests: 27 <br> Safe Tests: 18");
         }
         else if ((javaVersionMajor == 7 && javaVersionUpdate <= 45)) {
-            out.println("Unsafe Tests: 23 <br> Safe Tests: 15");
+            out.println("Unsafe Tests: 28 <br> Safe Tests: 17");
         }
         else {
             out.println("These test cases have not been tested for the current Java version");
@@ -68,6 +68,19 @@
         </ul>
         <br />
 	</li>
+
+    <li><a href="http://www.jdom.org/docs/apidocs/org/jdom2/input/SAXBuilder.html">org.jdom2.input.<b>SAXBuilder</b> (link to Javadoc)</a>
+        <ul>
+            <li><a href="xmlview.jsp?title=Unsafe%20SAXBuilder&test=SAXBuilder%3A%20Unsafe%20by%20Default%20Example&var=saxbuilderunsafedefault">Unsafe by Default Example</a></li>
+            <li><a href="xmlview.jsp?title=Safe%20SAXBuilder&test=SAXBuilder%3A%20Safe%20when%20Disallowing%20DOCTYPE%20Declarations%20Example&var=saxbuildersafedoctype">Safe when Disallowing DOCTYPE Declarations Example</a></li>
+            <li><a href="xmlview.jsp?title=Unsafe%20SAXBuilder&test=SAXBuilder%3A%20Unsafe%20when%20Allowing%20DOCTYPE%20Declarations%20Example&var=saxbuilderunsafedoctype">Unsafe when Allowing DOCTYPE Declarations Example</a></li>
+            <li><a href="xmlview.jsp?title=Unsafe%20SAXBuilder&test=SAXBuilder%3A%20Unsafe%20when%20Disabling%20External%20General%20and%20Parameter%20Entities%20Example&var=saxbuilderunsafeexternaloff">Unsafe when Disabling External General and Parameter Entities Example</a></li>
+            <li><a href="xmlview.jsp?title=Unsafe%20SAXBuilder&test=SAXBuilder%3A%20Unsafe%20when%20Enabling%20External%20General%20and%20Parameter%20Entities%20Example&var=saxbuilderunsafeexternalon">Unsafe when Enabling External General and Parameter Entities Example</a></li>
+            <li><a href="xmlview.jsp?title=Safe%20SAXBuilder&test=SAXBuilder%3A%20Safe%20when%20Disabling%20Entity%20Expansion%20Example&var=saxbuildersafeexpand">Safe when Disabling Entity Expansion Example</a></li>
+            <li><a href="xmlview.jsp?title=Unsafe%20SAXBuilder&test=SAXBuilder%3A%20Unsafe%20when%20Enabling%20Entity%20Expansion%20Example&var=saxbuilderunsafeexpand">Unsafe when Enabling Entity Expansion Example</a></li>
+        </ul>
+        <br />
+    </li>
 
 	<li><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/parsers/SAXParser.html">javax.xml.parsers.<b>SAXParser</b> (link to Javadoc)</a>
         <ul>

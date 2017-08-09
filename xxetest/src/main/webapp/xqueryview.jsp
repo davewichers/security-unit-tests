@@ -49,7 +49,7 @@
 <br>
 <form id="theform" action="xqueryresults" autocomplete="off">
     <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
-    <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&quot;a&quot;=&quot;a</mark> to the end.</h3>
+    <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&quot; or &quot;a&quot;=&quot;a</mark> to the end.</h3>
     Enter first name: <input title="Payload" name="payload" value="Bobby&quot; or &quot;a&quot;=&quot;a" />
     <input type="submit" value="Submit">
 </form>
