@@ -54,6 +54,58 @@
                     </container>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install-Custom-saxon9pe</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <file>${basedir}/lib/Custom-saxon9pe.jar</file>
+                            <groupId>customsaxon</groupId>
+                            <artifactId>Custom-saxon9pe</artifactId>
+                            <version>9</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-Custom-Saxon-HE</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <file>${basedir}/lib/Custom-Saxon-HE-9.8.0-3.jar</file>
+                            <groupId>customsaxon</groupId>
+                            <artifactId>Custom-Saxon-HE</artifactId>
+                            <version>9.8.0-3</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-xercesImpl</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <file>${basedir}/lib/Custom-xercesImpl-2.11.0.jar</file>
+                            <groupId>customxerces</groupId>
+                            <artifactId>Custom-xercesImpl</artifactId>
+                            <version>2.11.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -190,7 +242,6 @@
             <artifactId>basex-xqj</artifactId>
             <version>8.6</version>
         </dependency>
-
 
         <!-- Custom Dependencies (META-INF/services removed) -->
         <dependency>
