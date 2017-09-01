@@ -1,0 +1,2 @@
+# Set bash scripts to not convert line endings (for commiting on Windows)
+*.sh test eol=lf
