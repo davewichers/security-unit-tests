@@ -3,6 +3,7 @@
 <%@ page import="java.io.File" %>
 <%@ page import="java.io.FileReader" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 <html>
 <head>
     <title>Code View</title>
@@ -30,8 +31,10 @@
         br = new BufferedReader(new FileReader(path + File.separator + "XQueryResults.java"));
     }
 
-    while ((line = br.readLine()) != null) {
-        code.add(line);
+    if (br != null) {
+        while ((line = br.readLine()) != null) {
+            code.add(line);
+        }
     }
 
     response.getWriter().write("<pre>");
@@ -42,7 +45,7 @@
         }
 
         if (printFlag) {
-            response.getWriter().write(s + "<br />");
+            response.getWriter().write(Encode.forHtmlContent(s) + "<br />");
         }
 
         if (s.contains("//endregion")) {
