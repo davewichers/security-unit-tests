@@ -46,7 +46,7 @@
     out.println(contentBuilder.toString());
 %>
 </textarea>
-<br>
+<br />
 <form id="theform" action="xpathresults" autocomplete="off">
     <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
     <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&apos; or &apos;a&apos;=&apos;a</mark> to the end.</h3>

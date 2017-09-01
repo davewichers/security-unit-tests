@@ -1075,7 +1075,7 @@ public class XQueryResults extends HttpServlet {
             //endregion
 
             //region Saxon: Safe when Escaping Quotation Marks and Semicolons on XQuery Expression Example
-            /**
+            /*
              * Proves that Saxon is safe from injection when using character escaping on the XQuery expression
              */
             case "saxonsafeescape": {
