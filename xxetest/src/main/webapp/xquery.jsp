@@ -29,7 +29,7 @@
 	<li><a href="https://docs.oracle.com/database/121/JAXML/javax/xml/xquery/package-summary.html">javax.xml.xquery (link to <b>XQuery API for Java (XQJ)</b> Javadoc)</a>
 		<ul>
 			<li>Using <a href="http://www.saxonica.com/html/documentation9.6/javadoc/com/saxonica/xqj/SaxonXQDataSource.html">com.saxonica.xqj.SaxonXQDataSource (link to <b>Saxonica Saxon9</b> Javadoc)</a>
-				<ul>
+				<ol start="69">
 					<li><a href="xqueryview.jsp?title=Unsafe%20XQuery&test=XQJ%20with%20Saxon%3A%20Unsafe%20when%20Using%20String%20Concatenation%20on%20XQExpression%20Example&var=xqjsaxonunsafeconcat">Unsafe when Using String Concatenation on XQExpression Example</a></li>
 					<li><a href="xqueryview.jsp?title=Unsafe%20XQuery&test=XQJ%20with%20Saxon%3A%20Unsafe%20when%20Using%20String%20Placeholders%20on%20XQExpression%20Example&var=xqjsaxonunsafeplaceholder">Unsafe when Using String Placeholders on XQExpression Example</a></li>
 					<li><a href="xqueryview.jsp?title=Safe%20XQuery&test=XQJ%20with%20Saxon%3A%20Safe%20when%20Using%20Bind%20Variables%20on%20XQExpression%20Example&var=xqjsaxonsafebind">Safe when Using Bind Variables on XQExpression Example</a></li>
@@ -40,7 +40,7 @@
 					<li><a href="xqueryview.jsp?title=Safe%20XQuery&test=XQJ%20with%20Saxon%3A%20Safe%20when%20Using%20Bind%20Variables%20on%20XQPreparedExpression%20Example&var=xqjsaxonsafebindprep">Safe when Using Bind Variables on XQPreparedExpression Example</a></li>
 					<li><a href="xqueryview.jsp?title=Safe%20XQuery&test=XQJ%20with%20Saxon%3A%20Safe%20when%20Whitelisting%20on%20XQPreparedExpression%20Example&var=xqjsaxonsafelistprep">Safe when Whitelisting on XQPreparedExpression Example</a></li>
 					<li><a href="xqueryview.jsp?title=Safe%20XQuery&test=XQJ%20with%20Saxon%3A%20Safe%20when%20Escaping%20Quotation%20Marks%20and%20Semicolons%20on%20XQPreparedExpression%20Example&var=xqjsaxonsafeescapeprep">Safe when Escaping Quotation Marks and Semicolons on XQPreparedExpression Example</a></li>
-				</ul>
+				</ol>
 				<br />
 			</li>
 
@@ -66,13 +66,13 @@
 	</li>
 
 	<li><a href="http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/package-summary.html">net.sf.saxon.s9api (link to <b>Saxonica Saxon9</b> Javadoc)</a>
-		<ul>
+		<ol start="79">
 			<li><a href="xqueryview.jsp?title=Unsafe%20Saxon&test=Saxon%3A%20Unsafe%20when%20Using%20String%20Concatenation%20on%20XQuery%20Expression%20Example&var=saxonunsafeconcat">Unsafe when Using String Concatenation on XQuery Expression Example</a></li>
 			<li><a href="xqueryview.jsp?title=Unsafe%20Saxon&test=Saxon%3A%20Unsafe%20when%20Using%20String%20Placeholders%20on%20XQuery%20Expression%20Example&var=saxonunsafeplaceholder">Unsafe when Using String Placeholders on XQuery Expression Example</a></li>
 			<li><a href="xqueryview.jsp?title=Safe%20Saxon&test=Saxon%3A%20Safe%20when%20Using%20Bind%20Variables%20on%20XQuery%20Expression%20Example&var=saxonsafebind">Safe when Using Bind Variables on XQuery Expression Example</a></li>
 			<li><a href="xqueryview.jsp?title=Safe%20Saxon&test=Saxon%3A%20Safe%20when%20Whitelisting%20on%20XQuery%20Expression%20Example&var=saxonsafelist">Safe when Whitelisting on XQuery Expression Example</a></li>
 			<li><a href="xqueryview.jsp?title=Safe%20Saxon&test=Saxon%3A%20Safe%20when%20Escaping%20Quotation%20Marks%20and%20Semicolons%20on%20XQuery%20Expression%20Example&var=saxonsafeescape">Safe when Escaping Quotation Marks and Semicolons on XQuery Expression Example</a></li>
-		</ul>
+		</ol>
 	</li>
 </ul>
 

@@ -43,23 +43,8 @@
 <h1><%= request.getParameter("test") %></h1>
 <a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
 <br /><br />
-<h3>
-<%
-    if (request.getParameter("var").contains("xomsafe")) {
-        out.println("XOM will create an XML object that simulates the following XML file:");
-    }
-    else {
-        out.println("Enter an XML file containing an entity:");
-    }
-%>
-</h3>
-<textarea title="Payload" rows="15" cols="150" name="payload" form="theform"
-<%
-    if (request.getParameter("var").contains("xomsafe")) {
-        out.println(" readonly=\"readonly\"");
-    }
-%>
->
+<h3>Enter an XML file containing an entity:</h3>
+<textarea title="Payload" rows="15" cols="150" name="payload" form="theform">
 <%
     // print out the xml file in the text area
     StringBuilder contentBuilder = new StringBuilder();
@@ -86,7 +71,7 @@
     out.println(contentBuilder.toString());
 %>
 </textarea>
-<br>
+<br />
 <form id="theform" action="results" method="get" autocomplete="off">
     <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
     <input type="submit" value="Submit">

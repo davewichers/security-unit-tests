@@ -428,7 +428,7 @@ public class Results extends HttpServlet {
 			 * it sees a DTD
 			 */
 			case "saxbuildersafedoctype": {
-				final boolean expectedSafe = false;
+				final boolean expectedSafe = true;
 
 				// parsing the XML
 				try {
@@ -532,7 +532,7 @@ public class Results extends HttpServlet {
 			 * Proves that disabling entity expansion for the SAXBuilder makes it safe from injection
 			 */
 			case "saxbuildersafeexpand": {
-				final boolean expectedSafe = false;
+				final boolean expectedSafe = true;
 
 				// parsing the XML
 				try {
@@ -1384,10 +1384,10 @@ public class Results extends HttpServlet {
 				final boolean expectedSafe = true;
 
 				// creating the parser
-				Element test = new Element("test");
-				test.appendChild("&xxetest1;");	// appends text, not an actual entity reference, making this safe
+				Element test = new Element(request.getParameter("tag"));
+				test.appendChild(request.getParameter("ref"));	// appends text, not an actual entity reference, making this safe
 				nu.xom.Document doc = new nu.xom.Document(test);
-				String dtd = "<!DOCTYPE test [<!ENTITY xxetest1 SYSTEM \"../../../../src/main/resources/xxe.txt\"> ]> <filler />";
+				String dtd = request.getParameter("doc");
 				Builder builder = new Builder();
 				nu.xom.Document newDoc;
 

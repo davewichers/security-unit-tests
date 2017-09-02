@@ -9,7 +9,6 @@ import net.sf.saxon.s9api.XPathExecutable;
 import net.sf.saxon.s9api.XPathSelector;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
-import org.apache.commons.jxpath.JXPathContext;
 import org.apache.xpath.XPathAPI;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
@@ -144,7 +143,7 @@ public class XPathResults extends HttpServlet {
 
             //region Xalan: Safe when Whitelisting on XPath Expression Example
             /*
-             * Proves that XPath is safe from injection when whitelisting on the XPath expression
+             * Proves that Xalan is safe from injection when whitelisting on the XPath expression
              */
             case "xalansafelist": {
                 final boolean expectedSafe = true;
@@ -179,7 +178,7 @@ public class XPathResults extends HttpServlet {
 
             // region Xalan: Safe when Escaping Apostrophes on XPath Expression Example
             /*
-             * Proves that XPath is safe from injection when using string concatenation while escaping apostrophes on
+             * Proves that Xalan is safe from injection when using string concatenation while escaping apostrophes on
              * the XPath expression
              */
             case "xalansafeescape": {
@@ -822,7 +821,7 @@ public class XPathResults extends HttpServlet {
                     AutoPilot autoPilot = new AutoPilot(vtdNav);
 
                     // querying the XML
-                    String query = "/Students/Student[FirstName/text()=$name]"; // safe!
+                    String query = "/Students/Student[FirstName/text()=$name]"; // unsafe!
                     autoPilot.declareVariableExpr("name", "'" + request.getParameter("payload") + "'");
                     autoPilot.selectXPath(query);
                     ArrayList<String> resultList = new ArrayList<>();
