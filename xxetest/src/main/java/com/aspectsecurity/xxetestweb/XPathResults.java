@@ -157,7 +157,7 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query;
                     if (request.getParameter("payload").contains("'")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain apostrophes");
                     }
                     else {
@@ -218,7 +218,7 @@ public class XPathResults extends HttpServlet {
 
                     // querying the XML
                     String query = "/Students/Student[FirstName/text()='" + request.getParameter("payload") + "']"; // unsafe!
-                    ArrayList<String> nodeList = new ArrayList<>();
+                    ArrayList<String> nodeList = new ArrayList<String>();
                     for (Node node : document.selectNodes(query)) {
                         nodeList.add(node.toString() + "\n" + node.getStringValue());
                     }
@@ -247,7 +247,7 @@ public class XPathResults extends HttpServlet {
 
                     // querying the XML
                     String query = String.format("/Students/Student[FirstName/text()='%s']", request.getParameter("payload")); // unsafe!
-                    ArrayList<String> nodeList = new ArrayList<>();
+                    ArrayList<String> nodeList = new ArrayList<String>();
                     for (Node node : document.selectNodes(query)) {
                         nodeList.add(node.toString() + "\n" + node.getStringValue());
                     }
@@ -277,13 +277,13 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query;
                     if (request.getParameter("payload").contains("'")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain apostrophes");
                     }
                     else {
                         query = "/Students/Student[FirstName/text()='" + request.getParameter("payload") + "']";    // safe in here!
                     }
-                    ArrayList<String> nodeList = new ArrayList<>();
+                    ArrayList<String> nodeList = new ArrayList<String>();
                     for (Node node : document.selectNodes(query)) {
                         nodeList.add(node.toString() + "\n" + node.getStringValue());
                     }
@@ -313,7 +313,7 @@ public class XPathResults extends HttpServlet {
 
                     // querying the XML
                     String query = "/Students/Student[FirstName/text()='" + request.getParameter("payload").replace("'", "&apos;") + "']"; // safe!
-                    ArrayList<String> nodeList = new ArrayList<>();
+                    ArrayList<String> nodeList = new ArrayList<String>();
                     for (Node node : document.selectNodes(query)) {
                         nodeList.add(node.toString() + "\n" + node.getStringValue());
                     }
@@ -444,7 +444,7 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query;
                     if (request.getParameter("payload").contains("'")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain apostrophes");
                     }
                     else {
@@ -515,7 +515,7 @@ public class XPathResults extends HttpServlet {
                     selector.setContextItem(node);
                     selector.evaluate();
 
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : selector) {
                         resultList.add(value.toString());
                     }
@@ -552,7 +552,7 @@ public class XPathResults extends HttpServlet {
                     selector.setContextItem(node);
                     selector.evaluate();
 
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : selector) {
                         resultList.add(value.toString());
                     }
@@ -592,7 +592,7 @@ public class XPathResults extends HttpServlet {
                     selector.setVariable(qname, XdmValue.makeValue(request.getParameter("payload")));
                     selector.evaluate();
 
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : selector) {
                         resultList.add(value.toString());
                     }
@@ -624,7 +624,7 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query;
                     if (request.getParameter("payload").contains("'")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain apostrophes");
                     }
                     else {
@@ -636,7 +636,7 @@ public class XPathResults extends HttpServlet {
                     selector.setContextItem(node);
                     selector.evaluate();
 
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : selector) {
                         resultList.add(value.toString());
                     }
@@ -674,7 +674,7 @@ public class XPathResults extends HttpServlet {
                     selector.setContextItem(node);
                     selector.evaluate();
 
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : selector) {
                         resultList.add(value.toString());
                     }
@@ -717,7 +717,7 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query = "/Students/Student[FirstName/text()='" + request.getParameter("payload") + "']"; // unsafe!
                     autoPilot.selectXPath(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     int result;
                     while ((result = autoPilot.evalXPath()) != -1) {
                         StringBuilder stringBuilder = new StringBuilder();
@@ -770,7 +770,7 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query = String.format("/Students/Student[FirstName/text()='%s']", request.getParameter("payload")); // unsafe!
                     autoPilot.selectXPath(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     int result;
                     while ((result = autoPilot.evalXPath()) != -1) {
                         StringBuilder stringBuilder = new StringBuilder();
@@ -824,7 +824,7 @@ public class XPathResults extends HttpServlet {
                     String query = "/Students/Student[FirstName/text()=$name]"; // unsafe!
                     autoPilot.declareVariableExpr("name", "'" + request.getParameter("payload") + "'");
                     autoPilot.selectXPath(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     int result;
                     while ((result = autoPilot.evalXPath()) != -1) {
                         StringBuilder stringBuilder = new StringBuilder();
@@ -877,14 +877,14 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query;
                     if (request.getParameter("payload").contains("'")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain apostrophes");
                     }
                     else {
                         query = "/Students/Student[FirstName/text()='" + request.getParameter("payload") + "']";    // safe in here!
                     }
                     autoPilot.selectXPath(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     int result;
                     while ((result = autoPilot.evalXPath()) != -1) {
                         StringBuilder stringBuilder = new StringBuilder();
@@ -938,7 +938,7 @@ public class XPathResults extends HttpServlet {
                     // querying the XML
                     String query = "/Students/Student[FirstName/text()='" + request.getParameter("payload").replace("'", "&apos;") + "']"; // safe!
                     autoPilot.selectXPath(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     int result;
                     while ((result = autoPilot.evalXPath()) != -1) {
                         StringBuilder stringBuilder = new StringBuilder();

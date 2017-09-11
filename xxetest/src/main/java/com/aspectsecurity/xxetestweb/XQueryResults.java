@@ -67,7 +67,7 @@ public class XQueryResults extends HttpServlet {
                     // querying the XML
 
                     // testing the result
-                    printResults(expectedSafe, new ArrayList<>(), response);
+                    printResults(expectedSafe, new ArrayList<String>(), response);
 
                 } catch (Exception ex) {
                     response.getWriter().write(ex.toString());
@@ -98,7 +98,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -137,7 +137,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -179,7 +179,7 @@ public class XQueryResults extends HttpServlet {
                     expression.bindString(new QName("path"), xmlPath, null);
                     expression.bindString(new QName("name"), request.getParameter("payload"), null);
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -212,7 +212,7 @@ public class XQueryResults extends HttpServlet {
                     String xmlPath = getClass().getResource("/students.xml").toString();
                     String query;
                     if (request.getParameter("payload").contains("\"") || request.getParameter("payload").contains(";")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain quotes or semicolons");
                     }
                     else {
@@ -224,7 +224,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -265,7 +265,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -303,7 +303,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -341,7 +341,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -383,7 +383,7 @@ public class XQueryResults extends HttpServlet {
                     expression.bindString(new QName("path"), xmlPath, null);
                     expression.bindString(new QName("name"), request.getParameter("payload"), null);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -416,7 +416,7 @@ public class XQueryResults extends HttpServlet {
                     String xmlPath = getClass().getResource("/students.xml").toString();
                     String query;
                     if (request.getParameter("payload").contains("\"") || request.getParameter("payload").contains(";")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain quotes or semicolons");
                     }
                     else {
@@ -428,7 +428,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -468,7 +468,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -511,7 +511,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -549,7 +549,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -591,7 +591,7 @@ public class XQueryResults extends HttpServlet {
                     expression.bindString(new QName("path"), xmlPath, null);
                     expression.bindString(new QName("name"), request.getParameter("payload"), null);
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -624,7 +624,7 @@ public class XQueryResults extends HttpServlet {
                     String xmlPath = getClass().getResource("/students.xml").toString();
                     String query;
                     if (request.getParameter("payload").contains("\"") || request.getParameter("payload").contains(";")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain quotes or semicolons");
                     }
                     else {
@@ -638,7 +638,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -678,7 +678,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQExpression expression = connection.createExpression();
                     XQResultSequence result = expression.executeQuery(query);
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -716,7 +716,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -754,7 +754,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -796,7 +796,7 @@ public class XQueryResults extends HttpServlet {
                     expression.bindString(new QName("path"), xmlPath, null);
                     expression.bindString(new QName("name"), request.getParameter("payload"), null);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -829,7 +829,7 @@ public class XQueryResults extends HttpServlet {
                     String xmlPath = getClass().getResource("/students.xml").toString();
                     String query;
                     if (request.getParameter("payload").contains("\"") || request.getParameter("payload").contains(";")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain quotes or semicolons");
                     }
                     else {
@@ -841,7 +841,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -881,7 +881,7 @@ public class XQueryResults extends HttpServlet {
                     XQConnection connection = dataSource.getConnection();
                     XQPreparedExpression expression = connection.prepareExpression(query);
                     XQResultSequence result = expression.executeQuery();
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     while (result.next()) {
                         resultList.add(result.getItemAsString(null));
                     }
@@ -928,7 +928,7 @@ public class XQueryResults extends HttpServlet {
                     xqEval.evaluate();
 
                     // interpret the result of the query
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : xqEval) {
                         resultList.add(value.toString());
                     }
@@ -968,7 +968,7 @@ public class XQueryResults extends HttpServlet {
                     xqEval.evaluate();
 
                     // interpret the result of the query
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : xqEval) {
                         resultList.add(value.toString());
                     }
@@ -1010,7 +1010,7 @@ public class XQueryResults extends HttpServlet {
                     xqEval.evaluate();
 
                     // interpret the result of the query
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : xqEval) {
                         resultList.add(value.toString());
                     }
@@ -1042,7 +1042,7 @@ public class XQueryResults extends HttpServlet {
                     // querying the XML
                     String query;
                     if (request.getParameter("payload").contains("\"") || request.getParameter("payload").contains(";")) {
-                        printResults(expectedSafe, new ArrayList<>(), response);
+                        printResults(expectedSafe, new ArrayList<String>(), response);
                         throw new InvalidParameterException("First Name parameter must not contain quotes or semicolons");
                     }
                     else {
@@ -1057,7 +1057,7 @@ public class XQueryResults extends HttpServlet {
                     xqEval.evaluate();
 
                     // interpret the result of the query
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : xqEval) {
                         resultList.add(value.toString());
                     }
@@ -1099,7 +1099,7 @@ public class XQueryResults extends HttpServlet {
                     xqEval.evaluate();
 
                     // interpret the result of the query
-                    ArrayList<String> resultList = new ArrayList<>();
+                    ArrayList<String> resultList = new ArrayList<String>();
                     for (XdmValue value : xqEval) {
                         resultList.add(value.toString());
                     }
