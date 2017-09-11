@@ -2,9 +2,10 @@
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.io.InputStreamReader" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 <html>
 <head>
-    <title><%= request.getParameter("title") %></title>
+    <title><%= Encode.forHtml(request.getParameter("title")) %></title>
 </head>
 <body>
 
@@ -40,7 +41,7 @@
     }
 %>
 </h2>
-<h1><%= request.getParameter("test") %></h1>
+<h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
 <a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
 <br /><br />
 <h3>Enter an XML file containing an entity:</h3>
@@ -73,7 +74,7 @@
 </textarea>
 <br />
 <form id="theform" action="results" method="get" autocomplete="off">
-    <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
+    <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
     <input type="submit" value="Submit">
 </form>
 

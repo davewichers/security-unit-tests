@@ -1,7 +1,8 @@
+<%@ page import="org.owasp.encoder.Encode" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
-    <title><%= request.getParameter("title") %></title>
+    <title><%= Encode.forHtml(request.getParameter("title")) %></title>
 </head>
 <body>
 
@@ -16,7 +17,7 @@
 %>
 
 <h2 style="color:red"></h2>
-<h1><%= request.getParameter("test") %></h1>
+<h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
 <a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
 <br /><br />
 
@@ -27,7 +28,7 @@
     <input type="text" name="tag" value="test" title="Tag">
     <h3>Enter the entity reference for the above tag's content:</h3>
     <input type="text" name="ref" value="&amp;xxetest1;" title="Entity Reference">
-    <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
+    <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
     <br /><br /><br />
     <input type="submit" value="Submit">
 </form>
