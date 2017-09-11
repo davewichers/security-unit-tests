@@ -2,9 +2,10 @@
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.io.InputStreamReader" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 <html>
 <head>
-    <title><%= request.getParameter("title") %></title>
+    <title><%= Encode.forHtml(request.getParameter("title")) %></title>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
     // special messages for certain test cases
 %>
 </h2>
-<h1><%= request.getParameter("test") %></h1>
+<h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
 <a href='codeview.jsp?type=xquery&test=<%= request.getParameter("test") %>'>View code for this test</a>
 <br /><br />
 <h3>The following is the XML file the query will be performed on:</h3>
@@ -48,7 +49,7 @@
 </textarea>
 <br />
 <form id="theform" action="xqueryresults" autocomplete="off">
-    <input type="hidden" name="var" value="<%= request.getParameter("var") %>" />
+    <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
     <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&quot; or &quot;a&quot;=&quot;a</mark> to the end.</h3>
     Enter first name: <input title="Payload" name="payload" value="Bobby&quot; or &quot;a&quot;=&quot;a" />
     <input type="submit" value="Submit">
