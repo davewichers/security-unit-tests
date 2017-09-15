@@ -11,15 +11,16 @@
     <url>https://github.com/aspectsecurity/security-unit-tests</url>
 
     <repositories>
+
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>http://central.maven.org/maven2/</url>
+        </repository>
         <repository>
             <id>spring</id>
             <name>Spring Repository</name>
             <url>http://repo.spring.io/plugins-release/</url>
-        </repository>
-        <repository>
-            <id>basex</id>
-            <name>BaseX Repository</name>
-            <url>http://files.basex.org/maven/</url>
         </repository>
     </repositories>
 
@@ -90,13 +91,28 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>install-xercesImpl</id>
+                        <id>install-Custom-xercesImpl</id>
                         <phase>initialize</phase>
                         <configuration>
                             <file>${basedir}/lib/Custom-xercesImpl-2.11.0.jar</file>
                             <groupId>customxerces</groupId>
                             <artifactId>Custom-xercesImpl</artifactId>
                             <version>2.11.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-Custom-xalan</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <file>${basedir}/lib/Custom-xalan-2.7.2.jar</file>
+                            <groupId>customxalan</groupId>
+                            <artifactId>Custom-xalan</artifactId>
+                            <version>2.7.2</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -193,11 +209,6 @@
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <version>2.0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -211,11 +222,38 @@
             <groupId>commons-jxpath</groupId>
             <artifactId>commons-jxpath</artifactId>
             <version>1.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>2.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jaxen</groupId>
+                    <artifactId>jaxen</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.ximpleware</groupId>
@@ -228,11 +266,6 @@
             <groupId>javax.xml.xquery</groupId>
             <artifactId>xqj-api</artifactId>
             <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.xqj</groupId>
-            <artifactId>basex-xqj</artifactId>
-            <version>8.6</version>
         </dependency>
 
         <!-- Custom Dependencies (META-INF/services removed) -->
@@ -250,6 +283,17 @@
             <groupId>customxerces</groupId>
             <artifactId>Custom-xercesImpl</artifactId>
             <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>customxalan</groupId>
+            <artifactId>Custom-xalan</artifactId>
+            <version>2.7.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Other -->

@@ -21,7 +21,7 @@
 <h3>
 	<%
 		out.println("Java Version: " + Runtime.class.getPackage().getImplementationVersion() + "<br>");
-		out.println("Unsafe Tests: tbd <br> Safe Tests: tbd");
+		out.println("Unsafe Tests: 10 <br> Safe Tests: 15");
 	%>
 </h3>
 
@@ -44,35 +44,17 @@
 				</ol>
 				<br />
 			</li>
-
-			<!-- Not working
-			<li>Using <a href="http://xqj.net/basex/">net.xqj.basex.BaseXXQDataSource (link to <b>BaseX</b> page)</a>
-				<ul>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Unsafe when Using String Concatenation on XQExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexunsafeconcat") %>">Unsafe when Using String Concatenation on XQExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Unsafe when Using String Placeholders on XQExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexunsafeplaceholder") %>">Unsafe when Using String Placeholders on XQExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Safe when Using Bind Variables on XQExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexsafebind") %>">Safe when Using Bind Variables on XQExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Safe when Whitelisting on XQExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexsafelist") %>">Safe when Whitelisting on XQExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Safe when Escaping Quotation Marks and Semicolons on XQExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexsafeescape") %>">Safe when Escaping Quotation Marks and Semicolons on XQExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Unsafe when Using String Concatenation on XQPreparedExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexunsafeconcatprep") %>">Unsafe when Using String Concatenation on XQPreparedExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Unsafe when Using String Placeholders on XQPreparedExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexunsafeplaceholderprep") %>">Unsafe when Using String Placeholders on XQPreparedExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Safe when Using Bind Variables on XQPreparedExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexsafebindprep") %>">Safe when Using Bind Variables on XQPreparedExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Safe when Whitelisting on XQPreparedExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexsafelistprep") %>">Safe when Whitelisting on XQPreparedExpression Example</a></li>
-					<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe XQuery") %>&test=<%= Encode.forUriComponent("XQJ with BaseX: Safe when Escaping Quotation Marks and Semicolons on XQPreparedExpression Example") %>&var=<%= Encode.forUriComponent("xqjbasexsafeescapeprep") %>">Safe when Escaping Quotation Marks and Semicolons on XQPreparedExpression Example</a></li>
-				</ul>
-				<br />
-			</li>
-			-->
 		</ul>
 		<br />
 	</li>
 
 	<li><a href="http://www.saxonica.com/html/documentation/javadoc/net/sf/saxon/s9api/package-summary.html">net.sf.saxon.s9api (link to <b>Saxonica Saxon9</b> Javadoc)</a>
 		<ol start="79">
-			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Unsafe when Using String Concatenation on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonunsafeconcat") %>">Unsafe when Using String Concatenation on XQuery Expression Example</a></li>
-			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Unsafe when Using String Placeholders on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonunsafeplaceholder") %>">Unsafe when Using String Placeholders on XQuery Expression Example</a></li>
-			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Safe when Using Bind Variables on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonsafebind") %>">Safe when Using Bind Variables on XQuery Expression Example</a></li>
-			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Safe when Whitelisting on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonsafelist") %>">Safe when Whitelisting on XQuery Expression Example</a></li>
-			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Safe when Escaping Quotation Marks and Semicolons on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonsafeescape") %>">Safe when Escaping Quotation Marks and Semicolons on XQuery Expression Example</a></li>
+			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Unsafe when Using String Concatenation on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonunsafeconcatxquery") %>">Unsafe when Using String Concatenation on XQuery Expression Example</a></li>
+			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Unsafe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Unsafe when Using String Placeholders on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonunsafeplaceholderxquery") %>">Unsafe when Using String Placeholders on XQuery Expression Example</a></li>
+			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Safe when Using Bind Variables on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonsafebindxquery") %>">Safe when Using Bind Variables on XQuery Expression Example</a></li>
+			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Safe when Whitelisting on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonsafelistxquery") %>">Safe when Whitelisting on XQuery Expression Example</a></li>
+			<li><a href="xqueryview.jsp?title=<%= Encode.forUriComponent("Safe Saxon") %>&test=<%= Encode.forUriComponent("Saxon: Safe when Escaping Quotation Marks and Semicolons on XQuery Expression Example") %>&var=<%= Encode.forUriComponent("saxonsafeescapexquery") %>">Safe when Escaping Quotation Marks and Semicolons on XQuery Expression Example</a></li>
 		</ol>
 	</li>
 </ul>
