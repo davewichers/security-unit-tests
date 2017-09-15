@@ -31,7 +31,7 @@
     }
 
     // special messages for certain test cases
-    if (request.getParameter("var").equals("documentbuildersafeexpansion")) {
+    if (request.getParameter("var").equals("documentbuildersafeexpand")) {
         out.println("NOTE: Although this is supposed to make DocumentBuilder safe according to Java documentation, it doesn't");
     }
     if (request.getParameter("var").contains("access")) {
@@ -42,7 +42,7 @@
 %>
 </h2>
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
-<a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
+<a href='codeview.jsp?type=xml&var=<%= request.getParameter("var") %>'>View code for this test</a>
 <br /><br />
 <h3>Enter an XML file containing an entity:</h3>
 <textarea title="Payload" rows="15" cols="150" name="payload" form="theform">
@@ -73,7 +73,7 @@
 %>
 </textarea>
 <br />
-<form id="theform" action="results" method="get" autocomplete="off">
+<form id="theform" action="<%= Encode.forHtml(request.getParameter("var")) %>" method="get" autocomplete="off">
     <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
     <input type="submit" value="Submit">
 </form>

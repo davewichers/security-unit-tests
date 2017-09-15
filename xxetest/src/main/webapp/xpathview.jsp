@@ -25,7 +25,7 @@
 %>
 </h2>
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
-<a href='codeview.jsp?type=xpath&test=<%= request.getParameter("test") %>'>View code for this test</a>
+<a href='codeview.jsp?type=xpath&var=<%= request.getParameter("var") %>'>View code for this test</a>
 <br /><br />
 <h3>The following is the XML file the query will be performed on:</h3>
 <textarea title="Students" rows="15" cols="150" name="payload" form="theform" disabled>
@@ -48,7 +48,7 @@
 %>
 </textarea>
 <br />
-<form id="theform" action="xpathresults" autocomplete="off">
+<form id="theform" action="<%= Encode.forHtml(request.getParameter("var")) %>" autocomplete="off">
     <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
     <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&apos; or &apos;a&apos;=&apos;a</mark> to the end.</h3>
     Enter first name: <input title="Payload" name="payload" value="Bobby&apos; or &apos;a&apos;=&apos;a" />

@@ -18,10 +18,10 @@
 
 <h2 style="color:red"></h2>
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
-<a href='codeview.jsp?type=xml&test=<%= request.getParameter("test") %>'>View code for this test</a>
+<a href='codeview.jsp?type=xml&var=<%= request.getParameter("var") %>'>View code for this test</a>
 <br /><br />
 
-<form id="theform" action="results" method="get" autocomplete="off">
+<form id="theform" action="<%= Encode.forHtml(request.getParameter("var"))%>" method="get" autocomplete="off">
     <h3>Enter a DOCTYPE declaration containing an external entity:</h3>
     <input type="text" size="100" name="doc" value='<!DOCTYPE test [<!ENTITY xxetest1 SYSTEM "../../../../src/main/resources/xxe.txt"> ]> <filler />' title="DOCTYPE">
     <h3>Enter a name for a generic XML tag:</h3>
