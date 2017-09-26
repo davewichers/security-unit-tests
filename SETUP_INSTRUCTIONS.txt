@@ -1,24 +1,32 @@
-Make sure you have Java and Maven installed!
-If you want to run different Java versions, be sure to set your %JAVA_HOME% and %PATH% variables accordingly.
-When doing so, make sure the <maven.compiler.source/> and <maven.compiler.target/> elements in the pom.xml are set accordingly.
-(Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
+HOW TO DEPLOY:
+	Make sure you have Java and Maven installed!
+	If you want to run different Java versions, be sure to set your %JAVA_HOME% and %PATH% variables accordingly.
+	When doing so, make sure the <maven.compiler.source/> and <maven.compiler.target/> elements in the pom.xml are set accordingly.
+	(Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
 
-To run test cases out of the command line:
+	To run test cases out of the command line:
 
-	- Run mvnTestReport.bat or mvnTestReport.sh
+		- Run mvnTestReport.bat or mvnTestReport.sh
 
-To run test cases out of a web browser:
+	To run test cases out of a web browser:
 
-	- Run mvnDeployWebApp.bat or mvnDeployWebApp.sh
-	- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the UnitTestsWebApp URL shortcut (or navigate to http://localhost:8080/java-security-unit-tests)
-	- Press Ctrl-C in the command line when done and then terminate the batch job
+		- Run mvnDeployWebApp.bat or mvnDeployWebApp.sh
+		- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the UnitTestsWebApp URL shortcut (or navigate to http://localhost:8080/java-security-unit-tests)
+		- Press Ctrl-C in the command line when done and then terminate the batch job
 
-To run test cases with Contrast:
+	To run test cases with Contrast:
 
-	- Place your contrast.jar file in the base directory (security-unit-tests)
-	- Run mvnDeployWebAppWithContrast.bat or mvnDeployWebAppWithContrast.sh
-	- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the UnitTestsWebApp URL shortcut (or navigate to http://localhost:8080/java-security-unit-tests)
-	- You should see the app running in Contrast
-	- Press Ctrl-C in the command line when done and then terminate the batch job
+		- Place your contrast.jar file in the base directory (security-unit-tests)
+		- Run mvnDeployWebAppWithContrast.bat or mvnDeployWebAppWithContrast.sh
+		- When it gets to "[INFO] Press Ctrl-C to stop the container...", open the UnitTestsWebApp URL shortcut (or navigate to http://localhost:8080/java-security-unit-tests)
+		- You should see the app running in Contrast
+		- Press Ctrl-C in the command line when done and then terminate the batch job
 
-NOTE: The custom jar files in the lib folder remove the META-INF/services folder that the respective libraries use to override classes that exist in other test cases.
+	NOTE: The custom jar files in the lib folder remove the META-INF/services folder that the respective libraries use to override classes that exist in other test cases.
+
+HOW TO RUN ALL TESTS AUTOMATICALLY:
+	Make sure you have Python installed and in your path!
+
+	- Download ChromeDriver at https://sites.google.com/a/chromium.org/chromedriver/downloads
+	- Place the executable in the project base directory (or add it to your path manually)
+	- Run RunAllTests.bat or RunAllTests.sh
