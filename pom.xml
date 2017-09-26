@@ -4,7 +4,7 @@
 
     <groupId>com.aspectsecurity</groupId>
     <artifactId>java-security-unit-tests</artifactId>
-    <version>0.4.7</version>
+    <version>0.4.8</version>
     <packaging>war</packaging>
 
     <name>Java Security Unit Tests</name>
