@@ -5,3 +5,5 @@
 /.project
 /contrast.jar
 /*.iml
+/chromedriver
+/chromedriver.exe
