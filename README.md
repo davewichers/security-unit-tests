@@ -11,7 +11,7 @@ The purpose of this web app is to test the following vulnerabilities in Java (cl
 The code can be analyzed by static code tools or deployed as a web application and analyzed via dynamic tools. The underlying Java code can also be used as examples for how to make Java code safe/unsafe. You can also find detailed comments in the code with each test explaining why it is safe/unsafe.
 
 ## Installation
-Please see the [SETUP_INSTRUCTIONS.txt](./SETUP_INSTRUCTIONS.txt) file for information on deploying the web app.
+Please see the [SETUP_INSTRUCTIONS.txt](./SETUP_INSTRUCTIONS.txt) file for information on deploying the web app as well as instructions for running the test crawler that will run all the tests programmatically.
 
 ## License
 ```
