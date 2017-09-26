@@ -21,7 +21,7 @@
 <h3>
 	<%
 		out.println("Java Version: " + Runtime.class.getPackage().getImplementationVersion() + "<br>");
-		out.println("Unsafe Tests: 10 <br> Safe Tests: 15");
+		out.println("Unsafe Tests: 6 <br> Safe Tests: 9");
 	%>
 </h3>
 
