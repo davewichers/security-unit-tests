@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/xomsafe")
-public class XOMSafe extends XXETestCase {
+public class XOMSafeTestCase extends XXETestCase {
 
     /*
      * XOM: Safe by Default Example
