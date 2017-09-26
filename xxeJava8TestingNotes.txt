@@ -1,0 +1,90 @@
+By default, all parsers seem to still be subject to XXE in Java 1.8.
+
+JAXBContext parsers (unmarshallers) seem to be subject to XXE, even when you set the system settings
+
+However, XMLInputFactory are now immune from injection if you set the following system settings:
+
+	System.setProperty("javax.xml.accessExternalDTD", "");
+	System.setProperty("javax.xml.accessExternalSchema", "");
+	System.setProperty("javax.xml.accessExternalStylesheet", "");
+
+Then you get this exception: 
+
+External Entity: Failed to read external document, because 'file' access is not allowed due to restriction set by the accessExternalDTD property.
+
+Note: In my other XXE test suite, this fails for JAXBContext without any settings being set. Not sure why.
+
+
+
+No other type of parser is affecting by setting these settings. Not sure why. the JAXPParser should be.
+
+According to: https://jaxp.java.net/1.5/JAXP1.5Guide.html#JAXP1.5Documentation%2CGuide-7.StAX
+
+The following XML Parsers should be affected:
+
+  DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+  dbf.setAttribute(name, value);
+  
+  SAXParserFactory spf = SAXParserFactory.newInstance();
+  SAXParser parser = spf.newSAXParser();
+  parser.setProperty(name, value);
+  
+  XMLInputFactory xif = XMLInputFactory.newInstance();
+  xif.setProperty(name, value);
+  
+  SchemaFactory schemaFactory = SchemaFactory.newInstance(schemaLanguage);
+  schemaFactory.setProperty(name, value);
+
+  TransformerFactory factory = TransformerFactory.newInstance();
+  factory.setAttribute(name, value);
+
+Updated results:
+
+  Only 3 XML Parsers are implemented directly by Java 8:
+    - XMLInputFactory
+    - XMLTransformer
+    - XPathFactory - not tested (not in above list)
+    - JAXBContext - not tested (not in above list)
+
+
+
+Here are the expected results:
+
+Setting the jaxp.properties file values of:
+  System.setProperty("javax.xml.accessExternalDTD", "");
+  System.setProperty("javax.xml.accessExternalSchema", "");
+  System.setProperty("javax.xml.accessExternalStylesheet", "");
+
+a) Makes these safe by default:
+
+  DOMBuilderFactory
+  JAXBContext - This one is actually safe by default before setting these properties. Not sure why.
+  SAXParserFactory
+  TransformerFactory
+  XMLInputFactory
+  XMLReader - because this reader comes from a safe SAXParser
+
+Alternately, setting the jaxp.properties file value of:
+  javax.xml.accessExternalDTD=
+  javax.xml.accessExternalSchema=
+  javax.xml.accessExternalStylesheet=
+
+b) Makes the same set above also safe by default
+
+c) JAXBContext appears to now be safe from XXE by default in Java 1.8, because the underlying SAXParser is safe by default. (Not sure why).
+
+And here are the unexpected results:
+
+i) If you call:  docBuilderFactory.setExpandEntityReferences(false);
+   It still doesn't prevent the inclusion of an Entity and having the target file's contents included in the resulting document.
+
+ii) xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, ""); // Is not supported but the other 2 constants are.  Is there a specific reason for this?
+
+iii) transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Is not supported but the other 2 constants are.  Is there a specific reason for this?
+
+
+1) if you do this: xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+   then: xmlInputFactory.getProperty(XMLConstants.ACCESS_EXTERNAL_DTD) == null  (For Xerces XMLParsers only)
+
+   but setting of this property to the empty string DOES prevent XXE. Why can't you read its value?
+

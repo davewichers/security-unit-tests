@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!DOCTYPE test [<!ENTITY xxetest1 SYSTEM "../../../../src/main/resources/xxe.txt"> ]> 
-<test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="test.xsd">&xxetest1;</test>
