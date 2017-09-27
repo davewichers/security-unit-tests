@@ -15,11 +15,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 # clicks all the test links for the given test category
 def clickLinks(driver, testCount):
-	for i in range(0, (testCount + 3)):
+	categories = 3
+	for i in range(0, (testCount + categories)):
 		links = driver.find_elements_by_xpath("//a[not(starts-with(@href, 'http'))]")
 
 		# clicks all links except for the category links
-		if (i > 2):
+		if (i > (categories - 1)):
 			waitForLoad(driver)
 			links[i].click()
 			clickLinksTestView(driver)
