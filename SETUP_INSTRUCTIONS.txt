@@ -29,4 +29,5 @@ HOW TO RUN ALL TESTS AUTOMATICALLY:
 
 	- Download ChromeDriver at https://sites.google.com/a/chromium.org/chromedriver/downloads
 	- Place the executable in the project base directory (or add it to your path manually)
+	- Deploy the web app
 	- Run RunAllTests.bat or RunAllTests.sh
