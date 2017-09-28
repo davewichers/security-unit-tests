@@ -19,30 +19,6 @@
     response.setHeader("X-Frame-Options", "DENY");
 %>
 
-<!-- EXPERIMENTAL: Test Crawler (doesn't work yet)
-<br />
-<br />
-<script>
-
-        function runAllTests() {
-            var links = document.links;
-            for (var i = 0; i < links.length; i++) {
-                //alert("test!");
-                var link = document.getElementById(links[i].id).toString();
-                var nav = function (link) {
-                    location.href = link;
-                };
-                setTimeout(nav(link), 0);
-
-            }
-            alert("test!!");
-
-    }
-    document.getElementById("testButton").addEventListener("click", runAllTests);
-</script>
-<button id="testButton">Run All Tests For All Vulnerabilities</button>
--->
-
 <h3>
     <%
         final int javaVersionMajor = Integer.parseInt(Runtime.class.getPackage().getImplementationVersion().substring(2, 3));
