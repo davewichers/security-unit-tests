@@ -3,7 +3,7 @@
 pip install -U selenium
 
 if [ -f chromedriver ]; then
-	PATH=$PATH:./chromedriver
+	export PATH=$PATH:./chromedriver
 fi
 
 python WebTestCrawler.py

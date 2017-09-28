@@ -12,6 +12,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from sys import platform
 
 # clicks all the test links for the given test category
 def clickLinks(driver, testCount):
@@ -61,7 +62,10 @@ def waitForLoad(driver):
 
 
 # starts the crawler
-driver = webdriver.Chrome()
+if (platform == "linux" or platform == "linux2"):
+	driver = webdriver.Chrome(executable_path="./chromedriver")
+else:
+	driver = webdriver.Chrome()
 driver.get("http://localhost:8080/java-security-unit-tests/index.jsp")
 clickLinks(driver, 51)
 driver.get("http://localhost:8080/java-security-unit-tests/xpath.jsp")
