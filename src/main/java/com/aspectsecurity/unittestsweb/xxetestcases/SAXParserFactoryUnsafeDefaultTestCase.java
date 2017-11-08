@@ -11,12 +11,12 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-@WebServlet("/saxunsafevalidationoff")
-public class SAXUnsafeValidationOffTestCase extends XXETestCase {
+@WebServlet("/saxparserfactoryunsafedefault")
+public class SAXParserFactoryUnsafeDefaultTestCase extends XXETestCase {
 
     /*
-     * SAXParser: Unsafe when Disabling Validation Example
-     * Proves that disabling validation for the SAXParserFactory leaves the SAXParser parsing entities
+     * SAXParser: Unsafe by Default Example
+     * Proves that SAXParserFactory parses entities by default
      */
     protected void doTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -25,11 +25,10 @@ public class SAXUnsafeValidationOffTestCase extends XXETestCase {
         // parsing the XML
         try {
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            saxParserFactory.setValidating(false);	// not safe!
             SAXParser saxParser = saxParserFactory.newSAXParser();
             SAXHandler handler = new SAXHandler();
 
-            saxParser.parse (new ByteArrayInputStream(request.getParameter("payload").getBytes()), handler);
+            saxParser.parse (new ByteArrayInputStream(request.getParameter("payload").getBytes()), handler);	// unsafe!
 
             // testing the result
             printResults(expectedSafe, handler.getTestValue(), response);

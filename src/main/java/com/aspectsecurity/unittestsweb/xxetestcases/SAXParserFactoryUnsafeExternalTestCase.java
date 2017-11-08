@@ -11,8 +11,8 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-@WebServlet("/saxunsafeexternal")
-public class SAXUnsafeExternalTestCase extends XXETestCase {
+@WebServlet("/saxparserfactoryunsafeexternal")
+public class SAXParserFactoryUnsafeExternalTestCase extends XXETestCase {
 
     /*
      * SAXParser: Unsafe when Enabling External General and Parameter Entities Example

@@ -11,21 +11,23 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-@WebServlet("/saxunsafedoctype")
-public class SAXUnsafeDOCTYPETestCase extends XXETestCase {
+@WebServlet("/saxparserfactorysafeexternal")
+public class SAXParserFactorySafeExternalTestCase extends XXETestCase {
 
     /*
-     * SAXParser: Unsafe when Allowing DOCTYPE Declarations Example
-     * Proves that allowing DOCTYPE declarations for the SAXParserFactory allows the SAXParser to parse entities
+     * SAXParser: Safe when Disabling External General and Parameter Entities Example
+     * Proves that disabling external general and parameter entities for the SAXParserFactory makes the
+     * SAXParser ignore DTDs
      */
     protected void doTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        final boolean expectedSafe = false;
+        final boolean expectedSafe = true;
 
         // parsing the XML
         try {
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            saxParserFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false);	// unsafe!
+            saxParserFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);	// safe!
+            saxParserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);	// safe!
             SAXParser saxParser = saxParserFactory.newSAXParser();
             SAXHandler handler = new SAXHandler();
 

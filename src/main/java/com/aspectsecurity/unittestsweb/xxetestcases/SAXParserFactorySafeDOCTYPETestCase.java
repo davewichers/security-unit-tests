@@ -11,24 +11,26 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-@WebServlet("/saxunsafedefault")
-public class SAXUnsafeDefaultTestCase extends XXETestCase {
+@WebServlet("/saxparserfactorysafedoctype")
+public class SAXParserFactorySafeDOCTYPETestCase extends XXETestCase {
 
     /*
-     * SAXParser: Unsafe by Default Example
-     * Proves that SAXParserFactory parses entities by default
+     * SAXParser: Safe when Disallowing DOCTYPE Declarations Example
+     * Proves that disallowing DOCTYPE declarations for the SAXParserFactory makes the SAXParser throw an
+     * exception when it sees a DTD
      */
     protected void doTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        final boolean expectedSafe = false;
+        final boolean expectedSafe = true;
 
         // parsing the XML
         try {
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+            saxParserFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);	// safe!
             SAXParser saxParser = saxParserFactory.newSAXParser();
             SAXHandler handler = new SAXHandler();
 
-            saxParser.parse (new ByteArrayInputStream(request.getParameter("payload").getBytes()), handler);	// unsafe!
+            saxParser.parse (new ByteArrayInputStream(request.getParameter("payload").getBytes()), handler);
 
             // testing the result
             printResults(expectedSafe, handler.getTestValue(), response);

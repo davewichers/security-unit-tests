@@ -11,8 +11,8 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-@WebServlet("/saxunsafevalidationon")
-public class SAXUnsafeValidationOnTestCase extends XXETestCase {
+@WebServlet("/saxparserfactoryunsafevalidationon")
+public class SAXParserFactoryUnsafeValidationOnTestCase extends XXETestCase {
 
     /*
      * SAXParser: Unsafe when Enabling Validation Example
