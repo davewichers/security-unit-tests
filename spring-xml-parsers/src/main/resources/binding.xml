@@ -1,0 +1,5 @@
+<binding>
+    <mapping name="person" class="hello.Person">
+    	<value name="name" field="name" />
+    </mapping>
+</binding>

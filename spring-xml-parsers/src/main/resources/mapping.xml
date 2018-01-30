@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN" 
+     "http://castor.org/mapping.dtd">
+<mapping>
+    <description>
+		Spring OXM and Castor
+    </description>
+    <class name="hello.Person">
+        <map-to xml="person" />
+        <field name="name" type="string" container="false">
+            <bind-xml name="name" node="element"/>
+        </field>
+    </class>
+ </mapping>
