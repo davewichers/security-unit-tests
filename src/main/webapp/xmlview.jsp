@@ -82,6 +82,9 @@
 </textarea>
 <br />
 <form id="theform" action="<%= Encode.forHtml(request.getParameter("var")) %>" method="get" autocomplete="off">
+<% if (request.getParameter("unsafe") != null && request.getParameter("unsafe").equalsIgnoreCase("true")) { %>
+    <input type="hidden" name="unsafe" value="true" />
+<% } %>
     <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
     <input type="submit" value="Submit">
 </form>

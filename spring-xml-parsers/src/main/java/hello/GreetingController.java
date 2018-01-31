@@ -57,13 +57,19 @@ public class GreetingController {
         return "greeting";	// view template name
     }
     
-    @RequestMapping("/castor")
+    @RequestMapping("/springCastorUnmarshaller")
     // Note:
     // Spring
-    public String castor(@RequestParam(value="person", required=true) String person, Model model) {
+    public String castor(
+    		@RequestParam(value="person", required=true) String person,
+    		@RequestParam(value="unsafe", required=false, defaultValue="false") boolean unsafe,
+    		Model model
+    ) {
     	String ret = "default";
  
     	CastorMarshaller mar = (CastorMarshaller) ctx.getBean("castorMarshaller");
+    	if (unsafe)
+    		mar.setProcessExternalEntities(true);
     	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
  	   
  	   try {
@@ -81,14 +87,20 @@ public class GreetingController {
         return "greeting";	// view template name
     }
     
-    @RequestMapping("/jaxb2")
+    
+    @RequestMapping("/springJaxb2Unmarshaller")
     // Note:
     // Spring
-    public String jaxb2(@RequestParam(value="person", required=true) String person, Model model) {
+    public String jaxb2(
+    		@RequestParam(value="person", required=true) String person,
+    		@RequestParam(value="unsafe", required=false, defaultValue="false") boolean unsafe,
+    		Model model
+    ) {
     	String ret = "default";
     
     	Jaxb2Marshaller mar = (Jaxb2Marshaller) ctx.getBean("jaxbMarshallerBean");
-    	mar.setProcessExternalEntities(true);
+    	if (unsafe)
+    		mar.setProcessExternalEntities(true);
     	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
  	   
  	   Person p = (Person)mar.unmarshal(new StreamSource(bytes));
@@ -101,13 +113,19 @@ public class GreetingController {
         return "greeting";	// view template name
     }
     
-    @RequestMapping("/xstream")
+    @RequestMapping("/springXstreamUnmarshaller")
     // Note:
     // Spring
-    public String xstream(@RequestParam(value="person", required=true) String person, Model model) {
+    public String xstream(
+    		@RequestParam(value="person", required=true) String person,
+    		@RequestParam(value="unsafe", required=false, defaultValue="false") boolean unsafe,
+    		Model model
+    ) {
     	String ret = "default";
     
     	XStreamMarshaller mar = (XStreamMarshaller) ctx.getBean("xstreamMarshaller");
+    	if (unsafe)
+    		mar.setProcessExternalEntities(true);
     	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
  	   
  	   Person p;

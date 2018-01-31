@@ -183,29 +183,20 @@
 	<br />
 	</li>
 
-        <li><a href="#">New link</a>
+        <li><a href="">Spring OXM Castor Unmarshaller</a>
         <ol start="<%= ++testCount %>">
-                <li><a href="#">Test list item</a></li>
-                <li><a href="#">Test list item</a></li>
+                <%
+                        text = "Safe By Default: Spring OXM Castor Unmarshaller";
+                        title = Encode.forUriComponent(text);
+                        test = Encode.forUriComponent(text);
+                        var = Encode.forUriComponent("springCastorUnmarshaller");
+                        external = Encode.forUriComponent("spring");
+                %>
+                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
+                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM Castor Unmarshaller Explicitly Unsafe</a></li>
         </ol>
         <br />
-        </li>
-
-        <li><a href="#">New link</a>
-        <ol start="<%= ++testCount %>">
-                <li><a href="#">Test list item</a></li>
-                <li><a href="#">Test list item</a></li>
-        </ol>
-        <br />
-        </li>
-
-        <li><a href="#">New link</a>
-        <ol start="<%= ++testCount %>">
-                <li><a href="#">Test list item</a></li>
-                <li><a href="#">Test list item</a></li>
-        </ol>
-        <br />
-        </li>
+        </li> 
 </ul>
 
 </body>
