@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE test [<!ENTITY xxe SYSTEM "../src/main/resources/xxe.txt"> ]> 
+<person><name>&xxe;</name></person>

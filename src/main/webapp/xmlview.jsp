@@ -51,15 +51,23 @@
     StringBuilder contentBuilder = new StringBuilder();
     try {
         BufferedReader in;
-        if (request.getParameter("var").contains("jaxb")) {
-            in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbook1web.xml")));
-        }
-        else if (request.getParameter("var").contains("xmldecoder")) {
-            in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbeanweb.xml")));
-        }
-        else {
-            in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetest1web.xml")));
-        }
+	String external = request.getParameter("external");	// requests made to an external app
+	if (external != null && external.contains("spring"))
+	{
+	    // spring endpoints set up to unmarshal a <person><name></name></person>
+	    in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetest_person.xml")));
+	}
+	else { 
+	    if (request.getParameter("var").contains("jaxb")) {
+		in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbook1web.xml")));
+	    }
+	    else if (request.getParameter("var").contains("xmldecoder")) {
+		in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbeanweb.xml")));
+	    }
+	    else {
+		in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetest1web.xml")));
+	    }
+	}
         String str;
         while ((str = in.readLine()) != null) {
             contentBuilder.append(str);

@@ -167,6 +167,45 @@
         </ol>
         <br />
 	</li>
+
+	<li><a href="https://docs.spring.io/autorepo/docs/spring/5.0.3.RELEASE/javadoc-api/org/springframework/util/xml/StaxUtils.html">org.springframework.util.xml.StaxUtils#createDefensiveInputFactory()</a>
+	<ol start="<%= ++testCount %>">
+		<%
+			String text = "Safe By Default: StaxUtils.createDefensiveInputFactory";
+			String title = Encode.forUriComponent(text);
+			String test = Encode.forUriComponent(text);
+			String var = Encode.forUriComponent("springStaxUtilsCreateDefensiveInputFactory");
+			String external = Encode.forUriComponent("spring");		
+		%>
+		<li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
+		<li><a href="#">Test list item</a></li>
+	</ol>
+	<br />
+	</li>
+
+        <li><a href="#">New link</a>
+        <ol start="<%= ++testCount %>">
+                <li><a href="#">Test list item</a></li>
+                <li><a href="#">Test list item</a></li>
+        </ol>
+        <br />
+        </li>
+
+        <li><a href="#">New link</a>
+        <ol start="<%= ++testCount %>">
+                <li><a href="#">Test list item</a></li>
+                <li><a href="#">Test list item</a></li>
+        </ol>
+        <br />
+        </li>
+
+        <li><a href="#">New link</a>
+        <ol start="<%= ++testCount %>">
+                <li><a href="#">Test list item</a></li>
+                <li><a href="#">Test list item</a></li>
+        </ol>
+        <br />
+        </li>
 </ul>
 
 </body>

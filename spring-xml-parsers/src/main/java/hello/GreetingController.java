@@ -29,7 +29,7 @@ public class GreetingController {
 		ctx = ContextSingleton.getInstance();
 	}
 	
-    @RequestMapping("/defensiveInputFactory")
+    @RequestMapping("/springStaxUtilsCreateDefensiveInputFactory")
     // Note:
     // Spring
     public String defensiveInputFactory(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
