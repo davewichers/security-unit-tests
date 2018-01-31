@@ -196,6 +196,21 @@
                 <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM Castor Unmarshaller Explicitly Unsafe</a></li>
         </ol>
         <br />
+        </li>
+
+	<li><a href="">Spring OXM Jaxb2 Unmarshaller</a>
+        <ol start="<%= ++testCount %>">
+                <%
+                        text = "Safe By Default: Spring OXM Jaxb2 Unmarshaller";
+                        title = Encode.forUriComponent(text);
+                        test = Encode.forUriComponent(text);
+                        var = Encode.forUriComponent("springJaxb2Unmarshaller");
+                        external = Encode.forUriComponent("spring");
+                %>
+                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
+                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM Jaxb2 Unmarshaller Explicitly Unsafe</a></li>
+        </ol>
+        <br />
         </li> 
 </ul>
 
