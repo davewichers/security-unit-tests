@@ -16,6 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.io.xml.XomDriver;
+import com.thoughtworks.xstream.io.xml.BEAStaxDriver;
+
 import org.springframework.util.xml.StaxUtils;
 import hello.MyMarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -75,8 +80,6 @@ public class GreetingController {
  	   try {
  		   Person p = (Person)mar.unmarshal(new StreamSource(bytes));
  		   ret = p.getName();
- 		   // TODO did it unmarshal?
-		//mar.doMarshaling("person.xml", p);
 	} catch (IOException e) {
 		// TODO better error handling
 		e.printStackTrace();
@@ -99,19 +102,19 @@ public class GreetingController {
     	String ret = "default";
     
     	Jaxb2Marshaller mar = (Jaxb2Marshaller) ctx.getBean("jaxbMarshallerBean");
+    	
     	if (unsafe)
     		mar.setProcessExternalEntities(true);
     	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
  	   
  	   Person p = (Person)mar.unmarshal(new StreamSource(bytes));
 	   ret = p.getName();
-	   // TODO did it unmarshal?
-	//mar.marshal("person.xml", p);
-    	
-    	model.addAttribute("name", ret);
+	   
+	   model.addAttribute("name", ret);
         
-        return "greeting";	// view template name
+       return "greeting";	// view template name
     }
+    
     
     @RequestMapping("/springXstreamUnmarshaller")
     // Note:
@@ -124,23 +127,31 @@ public class GreetingController {
     	String ret = "default";
     
     	XStreamMarshaller mar = (XStreamMarshaller) ctx.getBean("xstreamMarshaller");
-    	if (unsafe)
-    		mar.setProcessExternalEntities(true);
     	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
     	
-    	//nmarshal(new StreamSource(bytes));
-		ret = p.getName();
-	} catch (XmlMappingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	   
-	   // TODO did it unmarshal?
-	//mar.marshal("person.xml", p);
+    	// by default, the XML Pull Parser is used for XStream
+    	// this parser does not process XML entities at all
+    	// reference: http://x-stream.github.io/CVE-2016-3674.html
     	
+    	// not sure exactly how to make it vulnerable to XXE
+//    	if (unsafe)
+//    	{
+//    		//XomDriver streamDriver = new XomDriver();
+//    		BEAStaxDriver streamDriver = new BEAStaxDriver();
+//    		mar.setStreamDriver(streamDriver);
+//    		mar.setProcessExternalEntities(true);
+//    	}
+    	
+    	
+    	Person p;
+		try {
+			p = (Person)mar.unmarshal(new StreamSource(bytes));
+			ret = p.getName();
+		} catch (XmlMappingException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		    	
     	model.addAttribute("name", ret);
         
         return "greeting";	// view template name

@@ -178,13 +178,12 @@
 			String external = Encode.forUriComponent("spring");		
 		%>
 		<li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
-		<li><a href="#">Test list item</a></li>
 	</ol>
 	<br />
 	</li>
 
         <li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/castor/CastorMarshaller.html">Spring OXM Castor Unmarshaller</a>
-        <ol start="<%= (testCount += 2) %>">
+        <ol start="<%= (testCount += 1) %>">
                 <%
                         text = "Safe By Default: Spring OXM Castor Unmarshaller";
                         title = Encode.forUriComponent(text);
@@ -223,7 +222,9 @@
                         external = Encode.forUriComponent("spring");
                 %>
                 <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
-                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM XStream Unmarshaller Explicitly Unsafe</a></li>
+               <!--
+		<li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM XStream Unmarshaller Explicitly Unsafe</a></li>
+-->
         </ol>
         <br />
         </li>
