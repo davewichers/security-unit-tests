@@ -15,10 +15,10 @@ public class ExternalTestCaseHelper {
 	public static String sendExternalRequest (String path, HttpServletRequest request) {
 		// TODO better exception handling
 		PropertiesHelper props = PropertiesHelper.getInstance();
-		String hostname = props.getProperty("server.hostname");
+		String address = props.getProperty("server.address");
 		String port = props.getProperty("server.port");
 		String proto = props.getProperty("server.proto");
-		String url = proto + "://" + hostname + ":" + port + path; // path includes leading slash
+		String url = proto + "://" + address + ":" + port + path; // path includes leading slash
 
 		String params = request.getParameter("payload");
 
