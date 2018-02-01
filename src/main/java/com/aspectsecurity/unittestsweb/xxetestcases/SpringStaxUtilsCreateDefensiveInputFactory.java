@@ -3,7 +3,7 @@ package com.aspectsecurity.unittestsweb.xxetestcases;
 import com.aspectsecurity.unittests.jaxb.BookType;
 import com.aspectsecurity.unittests.jaxb.Collection;
 import com.aspectsecurity.unittestsweb.XXETestCase;
-import com.aspectsecurity.unittestsweb.RequestUrl;
+import com.aspectsecurity.unittestsweb.ExternalTestCaseHelper;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +28,8 @@ public class SpringStaxUtilsCreateDefensiveInputFactory extends XXETestCase {
     protected void doTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         boolean expectedSafe = true;
-	// TODO better exception handling
-	String url = "http://localhost:9000/springStaxUtilsCreateDefensiveInputFactory";	// TODO this is bad... should come from a configurable property
-	String params = request.getParameter("payload");
-	try {
-		url = url+"?person="+URLEncoder.encode(params, "UTF-8");
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	}
-	HashMap<String, String> headers = new HashMap<String, String>();
-	String results = RequestUrl.executeGet(url, headers);
+	String path = "/springStaxUtilsCreateDefensiveInputFactory";
+	String results = ExternalTestCaseHelper.sendExternalRequest(path, request);
 	if (results != null)
 	{
 		printResults(expectedSafe, results, response);

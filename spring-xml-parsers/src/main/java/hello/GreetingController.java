@@ -37,12 +37,12 @@ public class GreetingController {
     @RequestMapping("/springStaxUtilsCreateDefensiveInputFactory")
     // Note:
     // Spring
-    public String defensiveInputFactory(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+    public String defensiveInputFactory(@RequestParam(value="person", required=false, defaultValue="World") String person, Model model) {
     	
     	XMLInputFactory xif = StaxUtils.createDefensiveInputFactory();
     	String ret = "";
     	try {
-			XMLStreamReader xsr = xif.createXMLStreamReader(new ByteArrayInputStream(name.getBytes()));
+			XMLStreamReader xsr = xif.createXMLStreamReader(new ByteArrayInputStream(person.getBytes()));
 			while (xsr.hasNext())
 			{
 				xsr.next();

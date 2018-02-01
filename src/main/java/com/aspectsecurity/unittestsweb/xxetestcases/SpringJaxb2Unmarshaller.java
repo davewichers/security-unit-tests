@@ -4,6 +4,7 @@ import com.aspectsecurity.unittests.jaxb.BookType;
 import com.aspectsecurity.unittests.jaxb.Collection;
 import com.aspectsecurity.unittestsweb.XXETestCase;
 import com.aspectsecurity.unittestsweb.RequestUrl;
+import com.aspectsecurity.unittestsweb.ExternalTestCaseHelper;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,25 +25,14 @@ public class SpringJaxb2Unmarshaller extends XXETestCase {
     protected void doTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         boolean expectedSafe = true;
-	// TODO better exception handling
-	String url = "http://localhost:9000/springJaxb2Unmarshaller";	// TODO this is bad... should come from a configurable property
-	String payload = request.getParameter("payload");
-
-	if (request.getParameter("unsafe") != null)
-	{
+	if (request.getParameter("unsafe") != null) {
 		if (request.getParameter("unsafe").equalsIgnoreCase("true"))
-		{
 			expectedSafe = false;
-		}
 	}
-	try {
-		url += "?person="+URLEncoder.encode(payload, "UTF-8");
-		url += "&unsafe="+URLEncoder.encode(Boolean.toString(!expectedSafe), "UTF-8");
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	}
-	HashMap<String, String> headers = new HashMap<String, String>();
-	String results = RequestUrl.executeGet(url, headers);
+
+	String path = "/springJaxb2Unmarshaller";
+        String results = ExternalTestCaseHelper.sendExternalRequest(path, request);
+
 	if (results != null)
 	{
 		printResults(expectedSafe, results, response);
