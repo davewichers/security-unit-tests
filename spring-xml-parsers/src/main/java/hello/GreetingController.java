@@ -127,10 +127,8 @@ public class GreetingController {
     	if (unsafe)
     		mar.setProcessExternalEntities(true);
     	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
- 	   
- 	   Person p;
-	try {
-		p = (Person)mar.unmarshal(new StreamSource(bytes));
+    	
+    	//nmarshal(new StreamSource(bytes));
 		ret = p.getName();
 	} catch (XmlMappingException e) {
 		// TODO Auto-generated catch block

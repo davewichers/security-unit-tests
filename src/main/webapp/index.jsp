@@ -160,7 +160,7 @@
 	</li>
 
 	<li><a href="http://www.xom.nu/apidocs/">nu.xom.Document (link to <b>XOM</b> Javadoc)</a>
-        <ol start="<%= (testCount + 6) %>">
+        <ol start="<%= (testCount += 6) %>">
             <li><a href="xomview.jsp?title=<%= Encode.forUriComponent("Safe XOM") %>&test=<%= Encode.forUriComponent("XOM: Safe by Default Example") %>&var=<%= Encode.forUriComponent("xomsafe") %>">Safe by Default Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe XOM") %>&test=<%= Encode.forUriComponent("XOM: Unsafe when using an InputStream Example") %>&var=<%= Encode.forUriComponent("xomunsafeinputstream") %>">Unsafe when using an InputStream Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe XOM") %>&test=<%= Encode.forUriComponent("XOM: Unsafe when Building from an Unsafe XMLReader Example") %>&var=<%= Encode.forUriComponent("xomunsafexmlreader") %>">Unsafe when Building from an Unsafe XMLReader Example</a></li>
@@ -169,7 +169,7 @@
 	</li>
 
 	<li><a href="https://docs.spring.io/autorepo/docs/spring/5.0.3.RELEASE/javadoc-api/org/springframework/util/xml/StaxUtils.html">org.springframework.util.xml.StaxUtils#createDefensiveInputFactory()</a>
-	<ol start="<%= ++testCount %>">
+	<ol start="<%= (testCount += 3) %>">
 		<%
 			String text = "Safe By Default: StaxUtils.createDefensiveInputFactory";
 			String title = Encode.forUriComponent(text);
@@ -183,8 +183,8 @@
 	<br />
 	</li>
 
-        <li><a href="">Spring OXM Castor Unmarshaller</a>
-        <ol start="<%= ++testCount %>">
+        <li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/castor/CastorMarshaller.html">Spring OXM Castor Unmarshaller</a>
+        <ol start="<%= (testCount += 2) %>">
                 <%
                         text = "Safe By Default: Spring OXM Castor Unmarshaller";
                         title = Encode.forUriComponent(text);
@@ -198,8 +198,8 @@
         <br />
         </li>
 
-	<li><a href="">Spring OXM Jaxb2 Unmarshaller</a>
-        <ol start="<%= ++testCount %>">
+	<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/jaxb/Jaxb2Marshaller.html">Spring OXM Jaxb2 Unmarshaller</a>
+        <ol start="<%= (testCount += 2) %>">
                 <%
                         text = "Safe By Default: Spring OXM Jaxb2 Unmarshaller";
                         title = Encode.forUriComponent(text);
@@ -211,7 +211,23 @@
                 <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM Jaxb2 Unmarshaller Explicitly Unsafe</a></li>
         </ol>
         <br />
-        </li> 
+        </li>
+
+	<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/xstream/XStreamMarshaller.html">Spring OXM XStream Unmarshaller</a>
+        <ol start="<%= (testCount += 2) %>">
+                <%
+                        text = "Safe By Default: Spring OXM XStream Unmarshaller";
+                        title = Encode.forUriComponent(text);
+                        test = Encode.forUriComponent(text);
+                        var = Encode.forUriComponent("springXstreamUnmarshaller");
+                        external = Encode.forUriComponent("spring");
+                %>
+                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
+                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM XStream Unmarshaller Explicitly Unsafe</a></li>
+        </ol>
+        <br />
+        </li>
+
 </ul>
 
 </body>
