@@ -22,7 +22,6 @@ import com.thoughtworks.xstream.io.xml.XomDriver;
 import com.thoughtworks.xstream.io.xml.BEAStaxDriver;
 
 import org.springframework.util.xml.StaxUtils;
-import hello.MyMarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.oxm.XmlMappingException;
