@@ -2,6 +2,8 @@ package hello;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -26,134 +28,131 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.oxm.XmlMappingException;
 import org.springframework.oxm.castor.CastorMarshaller;
+
 @Controller
 public class GreetingController {
 	static ContextSingleton ctx;
 	static {
 		ctx = ContextSingleton.getInstance();
 	}
-	
-    @RequestMapping("/springStaxUtilsCreateDefensiveInputFactory")
-    // Note:
-    // Spring
-    public String defensiveInputFactory(@RequestParam(value="person", required=false, defaultValue="World") String person, Model model) {
-    	
-    	XMLInputFactory xif = StaxUtils.createDefensiveInputFactory();
-    	String ret = "";
-    	try {
+
+	private String getStackTraceString(Exception e) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
+		return sw.toString();
+	}
+
+	@RequestMapping("/springStaxUtilsCreateDefensiveInputFactory")
+	// Note:
+	// Spring
+	public String defensiveInputFactory(
+			@RequestParam(value = "person", required = false, defaultValue = "World") String person, Model model) {
+
+		XMLInputFactory xif = StaxUtils.createDefensiveInputFactory();
+		String ret = "";
+		try {
 			XMLStreamReader xsr = xif.createXMLStreamReader(new ByteArrayInputStream(person.getBytes()));
-			while (xsr.hasNext())
-			{
+			while (xsr.hasNext()) {
 				xsr.next();
-				if (xsr.hasText())
-				{
+				if (xsr.hasText()) {
 					ret += xsr.getText();
 				}
 			}
 		} catch (XMLStreamException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			ret = "Error parsing XML...";//e.getStackTrace().toString();
+			ret = getStackTraceString(e);
 		}
-    	
-    	model.addAttribute("name", ret);
-        
-        return "greeting";	// view template name
-    }
-    
-    @RequestMapping("/springCastorUnmarshaller")
-    // Note:
-    // Spring
-    public String castor(
-    		@RequestParam(value="person", required=true) String person,
-    		@RequestParam(value="unsafe", required=false, defaultValue="false") boolean unsafe,
-    		Model model
-    ) {
-    	String ret = "default";
- 
-    	CastorMarshaller mar = (CastorMarshaller) ctx.getBean("castorMarshaller");
-    	if (unsafe)
-    		mar.setProcessExternalEntities(true);
-    	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
- 	   
- 	   try {
- 		   Person p = (Person)mar.unmarshal(new StreamSource(bytes));
- 		   ret = p.getName();
-	} catch (IOException e) {
-		// TODO better error handling
-		e.printStackTrace();
+
+		model.addAttribute("name", ret);
+
+		return "greeting"; // view template name
 	}
-    	
-    	model.addAttribute("name", ret);
-        
-        return "greeting";	// view template name
-    }
-    
-    
-    @RequestMapping("/springJaxb2Unmarshaller")
-    // Note:
-    // Spring
-    public String jaxb2(
-    		@RequestParam(value="person", required=true) String person,
-    		@RequestParam(value="unsafe", required=false, defaultValue="false") boolean unsafe,
-    		Model model
-    ) {
-    	String ret = "default";
-    
-    	Jaxb2Marshaller mar = (Jaxb2Marshaller) ctx.getBean("jaxbMarshallerBean");
-    	
-    	if (unsafe)
-    		mar.setProcessExternalEntities(true);
-    	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
- 	   
- 	   Person p = (Person)mar.unmarshal(new StreamSource(bytes));
-	   ret = p.getName();
-	   
-	   model.addAttribute("name", ret);
-        
-       return "greeting";	// view template name
-    }
-    
-    
-    @RequestMapping("/springXstreamUnmarshaller")
-    // Note:
-    // Spring
-    public String xstream(
-    		@RequestParam(value="person", required=true) String person,
-    		@RequestParam(value="unsafe", required=false, defaultValue="false") boolean unsafe,
-    		Model model
-    ) {
-    	String ret = "default";
-    
-    	XStreamMarshaller mar = (XStreamMarshaller) ctx.getBean("xstreamMarshaller");
-    	ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
-    	
-    	// by default, the XML Pull Parser is used for XStream
-    	// this parser does not process XML entities at all
-    	// reference: http://x-stream.github.io/CVE-2016-3674.html
-    	
-    	// not sure exactly how to make it vulnerable to XXE
-//    	if (unsafe)
-//    	{
-//    		//XomDriver streamDriver = new XomDriver();
-//    		BEAStaxDriver streamDriver = new BEAStaxDriver();
-//    		mar.setStreamDriver(streamDriver);
-//    		mar.setProcessExternalEntities(true);
-//    	}
-    	
-    	
-    	Person p;
+
+	@RequestMapping("/springCastorUnmarshaller")
+	// Note:
+	// Spring
+	public String castor(@RequestParam(value = "person", required = true) String person,
+			@RequestParam(value = "unsafe", required = false, defaultValue = "false") boolean unsafe, Model model) {
+		String ret = "default";
+
+		CastorMarshaller mar = (CastorMarshaller) ctx.getBean("castorMarshaller");
+		if (unsafe)
+			mar.setProcessExternalEntities(true);
+		ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
+
 		try {
-			p = (Person)mar.unmarshal(new StreamSource(bytes));
+			Person p = (Person) mar.unmarshal(new StreamSource(bytes));
 			ret = p.getName();
-		} catch (XmlMappingException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			ret = getStackTraceString(e);
 		}
-		    	
-    	model.addAttribute("name", ret);
-        
-        return "greeting";	// view template name
-    }
+
+		model.addAttribute("name", ret);
+
+		return "greeting"; // view template name
+	}
+
+	@RequestMapping("/springJaxb2Unmarshaller")
+	// Note:
+	// Spring
+	public String jaxb2(@RequestParam(value = "person", required = true) String person,
+			@RequestParam(value = "unsafe", required = false, defaultValue = "false") boolean unsafe, Model model) {
+		String ret = "default";
+
+		Jaxb2Marshaller mar = (Jaxb2Marshaller) ctx.getBean("jaxbMarshallerBean");
+
+		if (unsafe)
+			mar.setProcessExternalEntities(true);
+		ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
+
+		try {
+			Person p = (Person) mar.unmarshal(new StreamSource(bytes));
+			ret = p.getName();
+		} catch (Exception e) {
+			ret = getStackTraceString(e);
+		}
+
+		model.addAttribute("name", ret);
+
+		return "greeting"; // view template name
+	}
+
+	@RequestMapping("/springXstreamUnmarshaller")
+	// Note:
+	// Spring
+	public String xstream(@RequestParam(value = "person", required = true) String person,
+			@RequestParam(value = "unsafe", required = false, defaultValue = "false") boolean unsafe, Model model) {
+		String ret = "default";
+
+		XStreamMarshaller mar = (XStreamMarshaller) ctx.getBean("xstreamMarshaller");
+		ByteArrayInputStream bytes = new ByteArrayInputStream(person.getBytes());
+
+		// by default, the XML Pull Parser is used for XStream
+		// this parser does not process XML entities at all
+		// reference: http://x-stream.github.io/CVE-2016-3674.html
+
+		// not sure exactly how to make it vulnerable to XXE
+		// if (unsafe)
+		// {
+		// //XomDriver streamDriver = new XomDriver();
+		// BEAStaxDriver streamDriver = new BEAStaxDriver();
+		// mar.setStreamDriver(streamDriver);
+		// mar.setProcessExternalEntities(true);
+		// }
+
+		Person p;
+		try {
+			p = (Person) mar.unmarshal(new StreamSource(bytes));
+			ret = p.getName();
+		} catch (Exception e) {
+			ret = getStackTraceString(e);
+		}
+
+		model.addAttribute("name", ret);
+
+		return "greeting"; // view template name
+	}
 
 }
