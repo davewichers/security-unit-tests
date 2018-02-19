@@ -42,7 +42,13 @@
 %>
 </h2>
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
-<a href='codeview.jsp?type=xml&var=<%= request.getParameter("var") %>'>View code for this test</a>
+<%
+	String external = request.getParameter("external");
+	String url = "codeview.jsp?type=xml&var=" + request.getParameter("var");
+	if (external != null)
+		url += "&external=" + external;
+%>
+<a href='<%= url %>'>View code for this test</a>
 <br /><br />
 <h3>Enter an XML file containing an entity:</h3>
 <textarea title="Payload" rows="15" cols="150" name="payload" form="theform">
@@ -51,7 +57,7 @@
     StringBuilder contentBuilder = new StringBuilder();
     try {
         BufferedReader in;
-	String external = request.getParameter("external");	// requests made to an external app
+	external = request.getParameter("external");	// requests made to an external app
 	if (external != null && external.contains("spring"))
 	{
 	    // spring endpoints set up to unmarshal a <person><name></name></person>

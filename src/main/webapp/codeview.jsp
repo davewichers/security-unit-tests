@@ -20,9 +20,13 @@
 %>
 
 <%
+
+String external = request.getParameter("external");
+StringBuilder path;
+if (external == null) {
     // get to the correct directory for the .java files
     File temp = new File(System.getProperty("user.dir") + "/.cargo");
-    StringBuilder path = new StringBuilder(new File(new File(new File(new File(temp.getParent()).getParent()).getParent()).getParent()).getParent());
+    path = new StringBuilder(new File(new File(new File(new File(temp.getParent()).getParent()).getParent()).getParent()).getParent());
     path.append(File.separator).append("src").append(File.separator).append("main").append(File.separator).append("java").append(File.separator).append("com").append(File.separator).append("aspectsecurity").append(File.separator).append("unittestsweb");
 
     // get to the correct subdirectory for the type of test
@@ -46,6 +50,21 @@
             }
         }
     }
+} else {
+// find spring files...
+path = new StringBuilder(
+	new File(
+		new File(
+			new File(
+				new File(System.getProperty("user.dir")).getParent()
+			).getParent()
+		).getParent()
+	).getParent()
+);
+
+path.append("/spring-xml-parsers/src/main/java/hello/GreetingController.java");
+
+}
 
     // read and print the file
     response.getWriter().write("<pre>");
