@@ -171,13 +171,27 @@
 	<li><a href="https://docs.spring.io/autorepo/docs/spring/5.0.3.RELEASE/javadoc-api/org/springframework/util/xml/StaxUtils.html">org.springframework.util.xml.StaxUtils#createDefensiveInputFactory()</a>
 	<ol start="<%= (testCount += 3) %>">
 		<%
-			String text = "Safe By Default: StaxUtils.createDefensiveInputFactory";
-			String title = Encode.forUriComponent(text);
-			String test = Encode.forUriComponent(text);
-			String var = Encode.forUriComponent("springStaxUtilsCreateDefensiveInputFactory");
-			String external = Encode.forUriComponent("spring");		
+			String base = "StaxUtils.createDefensiveInputFactory";
+			String var = "springStaxUtilsCreateDefensiveInputFactory";
 		%>
-		<li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
+
+		<%!
+			public String getSpringTestUrl(String test_name, String var, boolean unsafe) {
+				test_name = Encode.forUriComponent(test_name);
+				var = Encode.forUriComponent(var);
+				String external = Encode.forUriComponent("spring");
+				String url = "xmlview.jsp?title=" + test_name;
+				url += "&test=" + test_name + "&var=" + var + "&external=spring";
+				url += "&unsafe=" + (unsafe ? "true" : "false");
+				return url;
+			}
+		%>
+		<%
+
+			String test_name = base + " Safe By Default";
+			String url = getSpringTestUrl(test_name, var, false);
+		%>
+		<li><a href="<%= url %>"><%= test_name %></a></li>
 	</ol>
 	<br />
 	</li>
@@ -185,14 +199,17 @@
         <li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/castor/CastorMarshaller.html">Spring OXM Castor Unmarshaller</a>
         <ol start="<%= (testCount += 1) %>">
                 <%
-                        text = "Safe By Default: Spring OXM Castor Unmarshaller";
-                        title = Encode.forUriComponent(text);
-                        test = Encode.forUriComponent(text);
+                        base = "Spring OXM Castor Unmarshaller";
                         var = Encode.forUriComponent("springCastorUnmarshaller");
-                        external = Encode.forUriComponent("spring");
+			test_name = base + " Safe By Default";
+			url = getSpringTestUrl(test_name, var, false);
                 %>
-                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
-                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM Castor Unmarshaller Explicitly Unsafe</a></li>
+                <li><a href="<%= url %>"><%= test_name %></a></li>
+		<%
+			test_name = base + " Explicity Unsafe";
+			url = getSpringTestUrl(test_name, var, true);
+		%>
+                <li><a href="<%= url %>"><%= test_name %></a></li>
         </ol>
         <br />
         </li>
@@ -200,14 +217,18 @@
 	<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/jaxb/Jaxb2Marshaller.html">Spring OXM Jaxb2 Unmarshaller</a>
         <ol start="<%= (testCount += 2) %>">
                 <%
-                        text = "Safe By Default: Spring OXM Jaxb2 Unmarshaller";
-                        title = Encode.forUriComponent(text);
-                        test = Encode.forUriComponent(text);
+                        base = "Spring OXM Jaxb2 Unmarshaller";
                         var = Encode.forUriComponent("springJaxb2Unmarshaller");
-                        external = Encode.forUriComponent("spring");
+
+			test_name = base + " Safe By Default";
+			url = getSpringTestUrl(test_name, var, false);
                 %>
-                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
-                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM Jaxb2 Unmarshaller Explicitly Unsafe</a></li>
+                <li><a href="<%= url %>"><%= test_name %></a></li>
+		<%
+			test_name = base + " Explicitly Unsafe";
+			url = getSpringTestUrl(test_name, var, true);
+		%>
+                <li><a href="<%= url %>"><%= test_name %></a></li>
         </ol>
         <br />
         </li>
@@ -215,17 +236,14 @@
 	<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/oxm/xstream/XStreamMarshaller.html">Spring OXM XStream Unmarshaller</a>
         <ol start="<%= (testCount += 2) %>">
                 <%
-                        text = "Safe By Default: Spring OXM XStream Unmarshaller";
-                        title = Encode.forUriComponent(text);
-                        test = Encode.forUriComponent(text);
+                        base = "Spring OXM XStream Unmarshaller";
                         var = Encode.forUriComponent("springXstreamUnmarshaller");
-                        external = Encode.forUriComponent("spring");
+
+			test_name = base + " Safe By Default";
+			url = getSpringTestUrl(test_name, var, false);
                 %>
-                <li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>"><%= text %></a></li>
-               <!--
-		<li><a href="xmlview.jsp?title=<%= title %>&test=<%= test %>&var=<%= var %>&external=<%= external %>&unsafe=true">Spring OXM XStream Unmarshaller Explicitly Unsafe</a></li>
--->
-        </ol>
+                <li><a href="<%= url %>"><%= test_name %></a></li>
+                      </ol>
         <br />
         </li>
 
