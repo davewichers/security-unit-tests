@@ -74,10 +74,11 @@ path.append("/spring-xml-parsers/src/main/java/hello/GreetingController.java");
         response.getWriter().write(Encode.forHtmlContent(line) + "<br />");
     }
     response.getWriter().write("</pre>");
+    br.close();
 %>
 
 <br /><br />
-<button type="button" name="back" onclick="history.back()">&lt&lt&lt back to test</button>
+<button type="button" name="back" onclick="history.back()">&lt;&lt;&lt; back to test</button>
 
 </body>
 </html>

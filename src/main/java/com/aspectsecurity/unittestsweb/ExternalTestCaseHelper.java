@@ -1,14 +1,10 @@
 package com.aspectsecurity.unittestsweb;
 
-import org.owasp.encoder.Encode;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.HashMap;
-import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
 
 public class ExternalTestCaseHelper {
 

@@ -50,12 +50,12 @@
 <br />
 <form id="theform" action="<%= Encode.forHtml(request.getParameter("var")) %>" autocomplete="off">
     <input type="hidden" name="var" value="<%= Encode.forHtml(request.getParameter("var")) %>" />
-    <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>&apos; or &apos;a&apos;=&apos;a</mark> to the end.</h3>
+    <h3>The injection given below will attempt to fetch all &lt;Student&gt; nodes instead of just the entered one by adding <mark>' or 'a'='a</mark> to the end.</h3>
     Enter first name: <input title="Payload" name="payload" value="Bobby&apos; or &apos;a&apos;=&apos;a" />
     <input type="submit" value="Submit">
 </form>
 
-<br /><br /><a href="xpath.jsp">&lt&lt&lt back to tests</a>
+<br /><br /><a href="xpath.jsp">&lt;&lt;&lt; back to tests</a>
 
 </body>
 </html>

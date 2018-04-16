@@ -1,13 +1,9 @@
 package com.aspectsecurity.unittestsweb;
 
-import java.util.Properties;
-import java.io.FileInputStream;
 import java.io.File;
-import java.lang.NullPointerException;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.lang.SecurityException;
-import java.lang.IllegalArgumentException;
+import java.util.Properties;
 
 // Singleton
 public class PropertiesHelper {

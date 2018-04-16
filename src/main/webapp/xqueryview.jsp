@@ -55,7 +55,7 @@
     <input type="submit" value="Submit">
 </form>
 
-<br /><br /><a href="xquery.jsp">&lt&lt&lt back to tests</a>
+<br /><br /><a href="xquery.jsp">&lt;&lt;&lt; back to tests</a>
 
 </body>
 </html>

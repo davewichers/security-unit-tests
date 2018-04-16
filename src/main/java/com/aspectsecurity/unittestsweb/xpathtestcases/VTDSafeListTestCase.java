@@ -34,6 +34,7 @@ public class VTDSafeListTestCase extends XPathTestCase {
             FileInputStream fileInputStream = new FileInputStream(file);
             byte[] bytes = new byte[(int) file.length()];
             fileInputStream.read(bytes);
+            fileInputStream.close();
 
             // parsing the XML
             VTDGen vtdGen = new VTDGen();

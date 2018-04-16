@@ -33,7 +33,7 @@
     <input type="submit" value="Submit">
 </form>
 
-<br /><br /><a href="index.jsp">&lt&lt&lt back to tests</a>
+<br /><br /><a href="index.jsp">&lt;&lt;&lt; back to tests</a>
 
 </body>
 </html>
