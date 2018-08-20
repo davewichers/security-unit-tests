@@ -32,6 +32,7 @@ public class DocumentBuilderSafeExternalTestCase extends XXETestCase {
 
             // testing the result
             printResults(expectedSafe, doc.getDocumentElement().getTextContent(), response);
+			response.getWriter().write("Name of this application is: " + request.getContextPath());
         }
         catch (Exception ex) {
             printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
