@@ -11,8 +11,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
+
 @WebServlet("/documentbuildersafedoctype")
 public class DocumentBuilderSafeDoctypeTestCase extends XXETestCase {
+	
+	static {
+		BasicConfigurator.configure();
+	}
+
+	static final Logger logger = Logger.getLogger(DocumentBuilderSafeDoctypeTestCase.class);
 
     /*
      * DocumentBuilder: Safe when Disallowing DOCTYPE Declarations Example
@@ -28,8 +37,11 @@ public class DocumentBuilderSafeDoctypeTestCase extends XXETestCase {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
             docBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);		// safe!
             DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-            Document doc = docBuilder.parse(new ByteArrayInputStream(request.getParameter("payload").getBytes()));
+            String payloadParam = request.getParameter("payload");
+            logger.warn("Payload param value is: " + payloadParam);
 
+            Document doc = docBuilder.parse(new ByteArrayInputStream(payloadParam.getBytes()));
+            
             // testing the result
             printResults(expectedSafe, doc.getDocumentElement().getTextContent(), response);
         }
