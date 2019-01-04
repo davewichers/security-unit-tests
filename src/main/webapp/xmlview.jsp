@@ -44,7 +44,7 @@
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
 <%
 	String external = request.getParameter("external");
-	String url = "codeview.jsp?type=xml&var=" + request.getParameter("var");
+	String url = "codeview.jsp?type=xml&var=" + Encode.forHtml(request.getParameter("var"));
 	if (external != null)
 		url += "&external=" + external;
 %>

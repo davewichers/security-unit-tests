@@ -25,7 +25,7 @@
 %>
 </h2>
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
-<a href='codeview.jsp?type=xpath&var=<%= request.getParameter("var") %>'>View code for this test</a>
+<a href='codeview.jsp?type=xpath&var=<%= Encode.forHtml(request.getParameter("var")) %>'>View code for this test</a>
 <br /><br />
 <h3>The following is the XML file the query will be performed on:</h3>
 <textarea title="Students" rows="15" cols="150" name="payload" form="theform" disabled>

@@ -32,7 +32,22 @@ public class DocumentBuilderSafeExternalTestCase extends XXETestCase {
 
             // testing the result
             printResults(expectedSafe, doc.getDocumentElement().getTextContent(), response);
-			response.getWriter().write("Name of this application is: " + request.getContextPath());
+			response.getWriter().write("<br/>Name of this application is: " + request.getContextPath());
+
+			java.net.URL url = null;
+			try {
+//				java.net.URI uri = new java.net.URI("http://abc.com:8080/foo?" + request.getParameter("payload").substring(2,5));
+				java.net.URI uri = java.net.URI.create("http://abc.com:8080/foo?" + request.getParameter("payload").substring(2,5));
+				url = uri.toURL();
+				System.out.println("Trying to connect to: " + url);
+				url.openConnection();
+				response.getWriter().write("<br/>Tried to connect to: " + url);
+				System.out.println("No exception thrown.");
+			} catch (Throwable t) {
+				System.out.println("Couldn't connect");
+				response.getWriter().write("<br/>Couldn't connect to connect to: " + url);
+				t.printStackTrace();
+			}
         }
         catch (Exception ex) {
             printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML

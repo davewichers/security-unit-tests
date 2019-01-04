@@ -18,7 +18,7 @@
 
 <h2 style="color:red"></h2>
 <h1><%= Encode.forHtml(request.getParameter("test")) %></h1>
-<a href='codeview.jsp?type=xml&var=<%= request.getParameter("var") %>'>View code for this test</a>
+<a href='codeview.jsp?type=xml&var=<%= Encode.forHtml(request.getParameter("var")) %>'>View code for this test</a>
 <br /><br />
 
 <form id="theform" action="<%= Encode.forHtml(request.getParameter("var"))%>" method="get" autocomplete="off">
