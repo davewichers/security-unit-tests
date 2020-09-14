@@ -4,7 +4,7 @@
 
     <groupId>org.owasp</groupId>
     <artifactId>java-security-unit-tests</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <packaging>war</packaging>
 
     <name>Java Security Unit Tests</name>
@@ -14,12 +14,12 @@
         <repository>
             <id>central</id>
             <name>Maven Central</name>
-            <url>http://central.maven.org/maven2/</url>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
-            <id>spring</id>
-            <name>Spring Repository</name>
-            <url>http://repo.spring.io/plugins-release/</url>
+            <id>xqj</id>
+            <name>An XQuery Repository</name>
+            <url>http://xqj.net/maven/</url>
         </repository>
     </repositories>
 
