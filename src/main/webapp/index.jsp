@@ -31,18 +31,17 @@
         }
 
         out.println("Java Version: " + Runtime.class.getPackage().getImplementationVersion() + "<br>");
-        if (javaVersionMajor >= 8) {
-            out.println("Unsafe Tests: 29 <br> Safe Tests: 22");
+        int unsafe = 32; // Manually specified based on the # of test cases
+        int safe = 26;
+        if (javaVersionMajor == 7) {
+            unsafe++;
+            safe--;
+            if (javaVersionUpdate <= 45) {
+                unsafe++;
+                safe--;
+            }
         }
-        else if (javaVersionMajor == 7 && javaVersionUpdate >= 51) {
-            out.println("Unsafe Tests: 30 <br> Safe Tests: 21");
-        }
-        else if ((javaVersionMajor == 7 && javaVersionUpdate <= 45)) {
-            out.println("Unsafe Tests: 31 <br> Safe Tests: 20");
-        }
-        else {
-            out.println("These test cases have not been tested for the current Java version");
-        }
+        out.println("Unsafe Tests: " + unsafe + " <br> Safe Tests: " + safe);
     %>
 </h3>
 

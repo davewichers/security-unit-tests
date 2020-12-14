@@ -25,7 +25,7 @@
 	%>
 </h3>
 
-<% int testCount = 46;	// for numbering all tests %>
+<% int testCount = 59;	// for numbering all tests %>
 
 <p>XPath Implementations:</p>
 <ul>
