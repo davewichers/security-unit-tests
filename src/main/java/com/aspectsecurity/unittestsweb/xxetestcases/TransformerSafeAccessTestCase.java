@@ -1,5 +1,6 @@
 package com.aspectsecurity.unittestsweb.xxetestcases;
 
+import com.aspectsecurity.unittests.App;
 import com.aspectsecurity.unittestsweb.XXETestCase;
 
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,8 @@ public class TransformerSafeAccessTestCase extends XXETestCase {
         // parsing the XML
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
+System.out.println(App.getJaxpImplementationInfo("TransformerFactory", factory.getClass()));
+System.out.println(App.getJaxpImplementationInfo("Transformer", factory.newTransformer().getClass()));
             factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");	// safe!
             Transformer transformer = factory.newTransformer();
 
@@ -44,6 +47,8 @@ public class TransformerSafeAccessTestCase extends XXETestCase {
             printResults(expectedSafe, result, response);
         }
         catch (Exception ex) {
+System.out.println("TransformerSafeAccessTestCase: caught exception:");
+ex.printStackTrace();
             printResults(expectedSafe, ex, response);	// safe: exception thrown when parsing XML
         }
     }
