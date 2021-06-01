@@ -16,11 +16,19 @@
             <name>Maven Central</name>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+        <!-- Both of these repos were attempts to get xqj-api pom/jar, and both fail. So installed
+          manually now via: mvn initialize configuration (see below).
+          The following repo contains xqj-api artifact but requires JFrog account, which isn't free.
         <repository>
+            <id>spring-plugins</id>
+            <name>Spring Plugins</name>
+            <url>https://repo.spring.io/plugins-release/</url>
+        </repository -->
+        <!--repository : this repo has an invalid SSL cert so can't download, and http is not available anymore.>
             <id>xqj</id>
             <name>An XQuery Repository</name>
-            <url>http://xqj.net/maven/</url>
-        </repository>
+            <url>https://xqj.net/maven/</url>
+        </repository-->
     </repositories>
 
     <properties>
@@ -114,8 +122,39 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>3.0.0-M1</version>
                 <executions>
+                    <!-- NOTE: To do this install, you have to run: mvn initialize -->
+                    <execution>
+                        <id>install-xqj-api-pom</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <file>${basedir}/lib/xqj-api-1.0.pom</file>
+                            <groupId>javax.xml.xquery</groupId>
+                            <artifactId>xqj-api</artifactId>
+                            <version>1.0</version>
+                            <packaging>pom</packaging>
+                            <generatePom>false</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-xqj-api-jar</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <file>${basedir}/lib/xqj-api-1.0.jar</file>
+                            <groupId>javax.xml.xquery</groupId>
+                            <artifactId>xqj-api</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>false</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <id>install-Custom-saxon9pe</id>
                         <phase>initialize</phase>
