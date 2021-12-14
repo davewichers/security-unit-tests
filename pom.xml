@@ -38,7 +38,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <skipTests>false</skipTests>
         <!-- log4j 2.13.0+ requires Java 8. -->
-        <version.log4j>2.12.1</version.log4j>
+        <version.log4j>2.16.0</version.log4j>
         <cargo.maven2.version>1.6.9</cargo.maven2.version>
         <!-- tomcat 8.5 is last version to support Java 7. Tomcat 9+ requires Java 8. -->
         <tomcat.major.version>8</tomcat.major.version>
