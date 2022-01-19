@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE test [
+        <!ENTITY % param_xxe SYSTEM "../../../src/main/resources/xxe.txt">
+        <!ENTITY % dtd SYSTEM "../../../../src/main/resources/maliciousdtd.dtd">
+        %dtd;
+        ]>
+<test>&xxe;</test>
