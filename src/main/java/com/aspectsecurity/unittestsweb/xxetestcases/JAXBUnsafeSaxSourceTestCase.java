@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -25,7 +25,6 @@ public class JAXBUnsafeSaxSourceTestCase extends XXETestCase {
 
     @Override
     protected void doTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        final boolean expectedSafe = false;
         try {
             Unmarshaller unmarshaller = JAXBContext.newInstance(Collection.class).createUnmarshaller();
             SAXSource saxSource = new SAXSource(
@@ -38,14 +37,14 @@ public class JAXBUnsafeSaxSourceTestCase extends XXETestCase {
             for (BookType book : bookList) {
                 discount = book.getPromotion().getDiscount().trim();
             }
-            printResults(expectedSafe, discount, response);
+            printResults(false, discount, response);
         }
-        catch (Exception ex) {
+        catch (SecurityException ex) {
             printResults(true, ex, response);	// safe: exception thrown when parsing XML
+        } catch (ParserConfigurationException|SAXException|JAXBException e) {
+            throw new IOException(e);
         }
     }
-
-
 
 
 }
