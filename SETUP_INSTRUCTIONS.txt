@@ -5,8 +5,8 @@ HOW TO DEPLOY:
 	(Note: Earlier Java versions may give errors if incompatible with certain XXE fixes)
 
         Setup (Do this only once):
-
-		- Run setExternalSpringConfig.sh - This sets up some config variables used by the Spring framework in the test cases.
+		- run: mvn initialize - This installs various custom XML parser JAR files required by some of the unit tests
+		- run: setExternalSpringConfig.sh - This sets up some config variables used by the Spring framework in the test cases.
 
 	To run test cases out of the command line:
 
@@ -31,7 +31,8 @@ HOW TO DEPLOY:
 HOW TO RUN ALL TESTS AUTOMATICALLY:
 	Make sure you have Python installed and in your path!
 
-	- Download ChromeDriver at https://sites.google.com/a/chromium.org/chromedriver/downloads
-	- Place the executable in the project base directory (or add it to your path manually)
+	- Make sure you have Chrome installed.
+	- Download ChromeDriver at https://sites.google.com/chromium.org/driver/downloads
+	- Unzip the executable into the project base directory (or add it to your path manually)
 	- Deploy the web app
 	- Run RunAllTests.bat or RunAllTests.sh
