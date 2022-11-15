@@ -1,3 +1,4 @@
+.java-version
 /target
 /.idea
 /.settings
@@ -7,3 +8,5 @@
 /*.iml
 /chromedriver
 /chromedriver.exe
+spring-xml-parsers/target
+

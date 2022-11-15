@@ -4,42 +4,37 @@
 
     <groupId>org.owasp</groupId>
     <artifactId>java-security-unit-tests</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.2</version>
     <packaging>war</packaging>
 
     <name>Java Security Unit Tests</name>
     <url>https://github.com/davewichers/security-unit-tests</url>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>Maven Central</name>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-        <!-- Both of these repos were attempts to get xqj-api pom/jar, and both fail. So installed
+    <!-- repositories>
+        <Both of these repos were attempts to get xqj-api pom/jar, and both fail. So installed
           manually now via: mvn initialize configuration (see below).
           The following repo contains xqj-api artifact but requires JFrog account, which isn't free.
         <repository>
             <id>spring-plugins</id>
             <name>Spring Plugins</name>
             <url>https://repo.spring.io/plugins-release/</url>
-        </repository -->
-        <!--repository : this repo has an invalid SSL cert so can't download, and http is not available anymore.>
+        </repository>
+        <repository : this repo has an invalid SSL cert so can't download, and http is not available anymore.>
             <id>xqj</id>
             <name>An XQuery Repository</name>
             <url>https://xqj.net/maven/</url>
-        </repository-->
-    </repositories>
+        </repository>
+    </repositories -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.java.target>1.8</project.java.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>${project.java.target}</maven.compiler.source>
+        <maven.compiler.target>${project.java.target}</maven.compiler.target>
         <skipTests>false</skipTests>
-        <!-- log4j 2.13.0+ requires Java 8. -->
-        <version.log4j>2.17.1</version.log4j>
-        <cargo.maven2.version>1.6.9</cargo.maven2.version>
+        <version.log4j>2.19.0</version.log4j>
+        <cargo.version>1.10.3</cargo.version>
         <!-- tomcat 8.5 is last version to support Java 7. Tomcat 9+ requires Java 8. -->
         <tomcat.major.version>8</tomcat.major.version>
         <version.tomcat>8.5.32</version.tomcat>
@@ -47,69 +42,139 @@
     </properties>
 
     <build>
+
+       <pluginManagement>
+           <plugins>
+               <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <usedDependencies>
+                        </usedDependencies>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.0-M7</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M3</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>extra-enforcer-rules</artifactId>
-						<version>1.2</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<id>enforce-bytecode-version</id>
-						<goals><goal>enforce</goal></goals>
-						<configuration>
-							<rules>
-								<enforceBytecodeVersion>
-									<maxJdkVersion>1.7</maxJdkVersion>
-									<excludes>
-									    <!-- guava includes backports for Java 7 compatibility -->
-										<exclude>com.google.guava:guava</exclude>
-									</excludes>
-									<ignoredScopes>test</ignoredScopes>
-									<message>Dependencies shouldn't require Java 8+.</message>
-								</enforceBytecodeVersion>
-							</rules>
-							<fail>warn</fail>
-						</configuration>
-					</execution>
-					<execution>
-						<id>enforce-jdk-version</id>
-						<goals><goal>enforce</goal></goals>
-						<configuration>
-							<rules>
-								<requireJavaVersion>
-									<version>1.7</version>
-									<message>Benchmark is currently written to support Java 7 and 8.</message>
-								</requireJavaVersion>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
+                <version>3.1.0</version>
+                   <dependencies>
+                       <dependency>
+                          <groupId>org.codehaus.mojo</groupId>
+                          <artifactId>extra-enforcer-rules</artifactId>
+                          <version>1.6.1</version>
+                       </dependency>
+                       <dependency>
+                          <groupId>org.codehaus.mojo</groupId>
+                          <artifactId>animal-sniffer-enforcer-rule</artifactId>
+                          <version>1.22</version>
+                       </dependency>
+                    </dependencies>
+                    <executions>
+                       <execution>
+                          <id>enforce-bytecode-version</id>
+                          <goals><goal>enforce</goal></goals>
+                          <configuration>
+                             <rules>
+                                <enforceBytecodeVersion>
+                                   <maxJdkVersion>1.8</maxJdkVersion>
+                                   <ignoredScopes>test</ignoredScopes>
+                                   <message>Dependencies shouldn't require Java 9+.</message>
+                                </enforceBytecodeVersion>
+                                <requireMavenVersion>
+                                   <version>3.3.9</version>
+                                </requireMavenVersion>
+                             </rules>
+                             <fail>warn</fail>
+                          </configuration>
+                       </execution>
+                       <execution>
+                          <id>enforce-jdk-version</id>
+                          <goals><goal>enforce</goal></goals>
+                          <configuration>
+                             <rules>
+                                <requireJavaVersion>
+                                   <version>${project.java.target}</version>
+                                   <message>These tests are currently written to support Java 8.</message>
+                                </requireJavaVersion>
+                             </rules>
+                          </configuration>
+                       </execution>
+                 </executions>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${project.java.target}</source>
+                    <target>${project.java.target}</target>
+                    <testSource>${project.java.target}</testSource>
+                    <testTarget>${project.java.target}</testTarget>
+                    <compilerArgument>
+                        <!-- Eventual desire is to use -Xlint:all -->
+                        -Xlint:unchecked
+                    </compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.4.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+            </plugin>
+            <plugin>
+                <!-- Note: This uses the maven-fluido-skin version specified next. The skin is referenced in src/site/site.xml. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>4.0.0-M3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.skins</groupId>
+                <artifactId>maven-fluido-skin</artifactId>
+                <version>1.11.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.3.2</version>
                 <configuration>
                     <archiveClasses>true</archiveClasses>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>${cargo.maven2.version}</version>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>${cargo.version}</version>
                 <configuration>
                     <container>
                         <containerId>tomcat${tomcat.major.version}x</containerId>
@@ -122,7 +187,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.0.1</version>
                 <executions>
                     <!-- NOTE: To do this install, you have to run: mvn initialize -->
                     <execution>
@@ -219,8 +284,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.22.1</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.13.0</version>
             </plugin>
         </plugins>
     </build>
@@ -232,8 +302,8 @@
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>${cargo.maven2.version}</version>
+                        <artifactId>cargo-maven3-plugin</artifactId>
+                        <version>${cargo.version}</version>
                         <configuration>
                             <container>
                                 <containerId>tomcat${tomcat.major.version}x</containerId>
@@ -261,7 +331,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -306,7 +376,7 @@
         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
-            <version>2.0.6</version>
+            <version>2.0.6.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -317,7 +387,7 @@
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>stax2-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- XPath APIs -->
@@ -335,8 +405,7 @@
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <!-- v2.1.0+ requires Java 8. -->
-            <version>2.0.3</version>
+            <version>2.1.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -351,7 +420,7 @@
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
-            <version>1.1.6</version>
+            <version>1.2.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -404,13 +473,12 @@
         <dependency>
             <groupId>org.owasp.encoder</groupId>
             <artifactId>encoder</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <!-- v1.4+ requires Java 8 -->
-            <version>1.3</version>
+            <version>1.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -429,11 +497,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                            <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>
