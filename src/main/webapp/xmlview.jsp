@@ -70,6 +70,9 @@
 	    else if (request.getParameter("var").contains("xmldecoder")) {
 		in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetestbeanweb.xml")));
 	    }
+        else if (request.getParameter("var").contains("xmlparameter")) {
+            in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetest2web.xml")));
+        }
 	    else {
 		in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/xxetest1web.xml")));
 	    }

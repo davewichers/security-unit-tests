@@ -51,6 +51,8 @@
 <ul>
 	<li><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/parsers/DocumentBuilder.html">javax.xml.parsers.<b>DocumentBuilder</b> (link to Javadoc)</a>
         <ol>
+            <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe External DTD Disabled") %>&test=<%= Encode.forUriComponent("DocumentBuilder: Unsafe by Default Example") %>&var=<%= Encode.forUriComponent("externaldtddisabled") %>">External DTD Disabled</a></li>
+            <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe External DTD Disabled Parameter") %>&test=<%= Encode.forUriComponent("DocumentBuilder: Unsafe by Default Parameter Example") %>&var=<%= Encode.forUriComponent("externaldtddisabledxmlparameter") %>">External DTD Disabled Parameter</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe DocumentBuilder") %>&test=<%= Encode.forUriComponent("DocumentBuilder: Unsafe by Default Example") %>&var=<%= Encode.forUriComponent("documentbuilderunsafedefault") %>">Unsafe by Default Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("\"Safe\" DocumentBuilder") %>&test=<%= Encode.forUriComponent("DocumentBuilder: \"Safe\" when Disabling Entity Expansion Example (FAILURE)") %>&var=<%= Encode.forUriComponent("documentbuildersafeexpand") %>">"Safe" when Disabling Entity Expansion Example <span class="redText">(FAILURE)</span></a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Safe DocumentBuilder") %>&test=<%= Encode.forUriComponent("DocumentBuilder: Safe when Disallowing DOCTYPE Declarations Example") %>&var=<%= Encode.forUriComponent("documentbuildersafedoctype") %>">Safe when Disallowing DOCTYPE Declarations Example</a></li>
@@ -66,6 +68,7 @@
         <ol start="<%= (testCount += 7) %>">
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe JAXBContext") %>&test=<%= Encode.forUriComponent("JAXBContext: Unsafe (Safe in Java 1.8 and up) JAXBContext Unmarshaller from File Example") %>&var=<%= Encode.forUriComponent("jaxbunsafefile") %>">Unsafe (Safe in Java 1.8 and up) JAXBContext Unmarshaller from File Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe JAXBContext") %>&test=<%= Encode.forUriComponent("JAXBContext: Unsafe JAXBContext Unmarshaller from Unsafe XMLInputFactory Example") %>&var=<%= Encode.forUriComponent("jaxbunsafexmlinputfactory") %>">Unsafe JAXBContext Unmarshaller from Unsafe XMLInputFactory Example</a></li>
+            <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe JAXBContext SaxSource") %>&test=<%= Encode.forUriComponent("JAXBContext: Unsafe JAXBContext Unmarshaller from Unsafe SaxSource") %>&var=<%= Encode.forUriComponent("jaxbunsafesaxsource") %>">Unsafe JAXBContext Unmarshaller from Unsafe SaxSource Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Safe JAXBContext") %>&test=<%= Encode.forUriComponent("JAXBContext: Safe JAXBContext Unmarshaller from Safe XMLInputFactory Example") %>&var=<%= Encode.forUriComponent("jaxbsafexmlinputfactory") %>">Safe JAXBContext Unmarshaller from Safe XMLInputFactory Example</a></li>
         </ol>
         <br />
@@ -93,6 +96,8 @@
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe SAXParserFactory") %>&test=<%= Encode.forUriComponent("SAXParserFactory: Unsafe when Enabling External General and Parameter Entities Example") %>&var=<%= Encode.forUriComponent("saxparserfactoryunsafeexternal") %>">Unsafe when Enabling External General and Parameter Entities Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe SAXParserFactory") %>&test=<%= Encode.forUriComponent("SAXParserFactory: Unsafe when Disabling Validation Example") %>&var=<%= Encode.forUriComponent("saxparserfactoryunsafevalidationoff") %>">Unsafe when Disabling Validation Example</a></li>
             <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe SAXParserFactory") %>&test=<%= Encode.forUriComponent("SAXParserFactory: Unsafe when Enabling Validation Example") %>&var=<%= Encode.forUriComponent("saxparserfactoryunsafevalidationon") %>">Unsafe when Enabling Validation Example</a></li>
+            <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe SAXParserFactory") %>&test=<%= Encode.forUriComponent("SAXBuilder: Unsafe when DTD Disabled Example") %>&var=<%= Encode.forUriComponent("saxparserexternaldtddisabled") %>">Unsafe SAXParserFactory DTD Disabled</a></li>
+            <li><a href="xmlview.jsp?title=<%= Encode.forUriComponent("Unsafe SAXParserFactory") %>&test=<%= Encode.forUriComponent("SAXBuilder: Unsafe when DTD Disabled Example with Parameter Example") %>&var=<%= Encode.forUriComponent("saxparserexternaldtddisabledxmlparameter") %>">Unsafe SAXParserFactory DTD Disabled with Parameter</a></li>
         </ol>
         <br />
 	</li>
